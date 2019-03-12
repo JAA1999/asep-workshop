@@ -16,6 +16,8 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.conf.urls import include
+from django.conf import settings
+from django.conf.urls.static import static
 from RNG import views
 
 urlpatterns = [
@@ -25,9 +27,7 @@ urlpatterns = [
     # with rng/ to be handled by
     # the RNG application.
     url(r'^admin/', admin.site.urls),
-]
-
-
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     # So fellas, just using the rango
     # URL mapping stuff but replacing
     # 'rango' with 'rng'. Be careful,

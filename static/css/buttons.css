@@ -52,12 +52,14 @@
 }
 
 .signin{
+  margin: 1px;
   width: 160px;
-  height: 30px;
-  border: 1px solid #323232;
-  border-radius: 15px;
+  height: 26px;
+  border: 2px solid #202020;
+  border-radius: 13px;
   background-color: #00EE00;
-  color: white;
+  color: #f7f7f7;
+  z-index: 2;
 }
 
 .signin:hover {
