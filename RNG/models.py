@@ -10,7 +10,7 @@ class User(models.Model):
     email = models.EmailField()     # might need additional parameters
     # password      need to setup password hasher etc
     critic = models.BooleanField()
-    website = models.URLField(optional=True)    # not sure if optional is a param or if it is just left null
+    website = models.URLField(blank=True)    # not sure if optional is a param or if it is just left null
     description = models.TextField()
 
     # might need list[fk] for ratings
@@ -36,7 +36,7 @@ class Rating(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
 
 
-class Category(models.Models):
+class Category(models.Model):
     name = models.CharField(max_length=64)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     supercategory = models.ForeignKey('self', on_delete=models.CASCADE)

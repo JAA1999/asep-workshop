@@ -2,4 +2,5 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 def index(request):
-    return HttpResponse("It's RNG time.")
+    context_dict={}
+    return render(request, 'RNG/index.html', context=context_dict)
