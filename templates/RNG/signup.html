@@ -1,5 +1,4 @@
 {% extends 'RNG/base.html' %}
-
 {% load staticfiles %}
 
 {% block title_block %}
@@ -7,5 +6,18 @@
 {% endblock %}
 
 {% block body_block %}
-Sign Up page nonsense.
+	<h1>Sign Up for RNG</h1>
+	{% if registered %}
+		<strong>You are already registered!</strong>
+		<a href="{% url 'index' %}">Return to the homepage.</a>
+		<br />
+	{% else %}
+		<s<strong>Please fill out the forms below to sign up.</strong><br />
+		<form id="user_form" method="post" action="{% url 'signup' %}" enctype="multipart/form-data">	
+			{% csrf_token %}
+			{{ user_form.as_p }}
+			{{ profile_form.as_p }}
+			<input type="submit" name="submit" value="Sign Up" />
+		</form>
+	{% endif %}
 {% endblock %}

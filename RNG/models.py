@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Database Objects
 
@@ -8,12 +9,22 @@ class User(models.Model):
     first_name = models.CharField(max_length = 128)
     last_name = models.CharField(max_length = 128)
     email = models.EmailField()     # might need additional parameters
+	
     # password      need to setup password hasher etc
     critic = models.BooleanField()
     website = models.URLField(blank=True)    # not sure if optional is a param or if it is just left null
     description = models.TextField()
 
     # might need list[fk] for ratings
+
+class UserProfile(models.Model):
+	user =  models.OneToOneField(User)
+	
+	website = models.URLField(blank=True)
+	picture = models.ImageField(upload_to='profile_images', blank=True)
+	
+	def __str__(self):
+		return self.user.username
 
 class Game(models.Model):
     ID = models.IntegerField(primary_key = True, unique = True)
