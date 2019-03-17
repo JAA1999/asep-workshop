@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html>
+  <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+		{% block title_block %}
+			<title>Rate New Games</title>
+		{% endblock %}
+	<link href={% static "css/style.css" %} rel="stylesheet" type="text/css" />
+	<link href= {% static "css/buttons.css" %} rel="stylesheet" type="text/css" />
+
+  </head>
+  <body>
+    <div class="head">
+		<div class="top-square centre">
+      
+			<div class="title ib">
+				<p class="title1 ib">RNG.</p>
+				<div class= "title2 ib">com</div>
+			</div>
+      
+			<div class="signinBlock ib">
+				<div><button class="signin ">Sign In</button></div>
+				<div><button class="signin ">Sign Up</button></div>
+			</div>
+        
+		</div>
+
+		<div class="top-square2 sticky">
+
+			<div class="dropdown padleft">
+				<button class="dropbtn">Home</button>
+				<div class="dropdown-content">
+					<a href="#">Link 1</a>
+					<a href="#">Link 2</a>
+					<a href="#">Link 3</a>
+				</div>
+			</div>
+        
+			<div class="line"></div>
+
+			<div class="dropdown">
+				<button class="dropbtn">About</button>
+				<div class="dropdown-content">
+					<a href="#">Link 1</a>
+					<a href="#">Link 2</a>
+					<a href="#">Link 3</a>
+				</div>
+			</div>
+        
+			<div class="line"></div>
+
+			<div class="dropdown">
+				<button class="dropbtn">Categories</button>
+				<div class="dropdown-content">
+					<a href="#">Link 1</a>
+					<a href="#">Link 2</a>
+					<a href="#">Link 3</a>
+				</div>
+			</div>
+
+			<form class="ib search padleft">
+				<input type="text" name="search" placeholder="Search">
+			</form>
+		</div>
+	</div>
+
+	{% block body_block %}
+	{% endblock %}
+  </body>
+</html>
