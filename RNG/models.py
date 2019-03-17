@@ -34,6 +34,7 @@ class Rating(models.Model):
     username = models.ForeignKey(User, on_delete=models.CASCADE)
     critic_rating = models.BooleanField()   # optional
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    comment = models.TextField()
 
 
 class Category(models.Model):
