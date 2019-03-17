@@ -16,58 +16,61 @@
   </head>
   <body>
     <div class="head">
-		<div class="top-square centre">
+
+      <div class="top-square centre">
       
-			<div class="title ib">
-				<p class="title1 ib">RNG.</p>
-				<div class= "title2 ib">com</div>
-			</div>
+        <div class="title ib">
+          <p class="title1 ib">RNG.</p>
+          <div class= "title2 ib">com</div>
+        </div>
       
-			<div class="signinBlock ib">
-				<div><button class="signin ">Sign In</button></div>
-				<li><a href="{% url 'signup' %}"><div><button class="signin ">Sign Up</button></div></a></li>
-			</div>
+        <div class="signinBlock ib">
+          <div><button class="signin ">Sign In</button></div>
+          <div><button class="signin ">Sign Up</button></div>
+        </div>
         
-		</div>
+      </div>
+    </div>
 
-		<div class="top-square2 sticky">
+    <div class="head2">
+      <div class="top-square2 sticky centre">
 
-			<div class="dropdown padleft">
-				<li><a href="{% url 'index' %}"><button class="dropbtn">Home</button></a></li>
-				<div class="dropdown-content">
-					<a href="#">Link 1</a>
-					<a href="#">Link 2</a>
-					<a href="#">Link 3</a>
-				</div>
-			</div>
+        <div class="dropdown padleft">
+          <button class="dropbtn">Home</button>
+          <div class="dropdown-content">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+          </div>
+        </div>
         
-			<div class="line"></div>
+        <div class="line"></div>
 
-			<div class="dropdown">
-				<li><a href="{% url 'about' %}"><button class="dropbtn">About</button></a></li>
-				<div class="dropdown-content">
-					<a href="#">Link 1</a>
-					<a href="#">Link 2</a>
-					<a href="#">Link 3</a>
-				</div>
-			</div>
+        <div class="dropdown">
+          <button class="dropbtn">About</button>
+          <div class="dropdown-content">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+          </div>
+        </div>
         
-			<div class="line"></div>
+        <div class="line"></div>
 
-			<div class="dropdown">
-				<li><a href="{% url 'category' %}"><button class="dropbtn">Categories</button></a></li>
-				<div class="dropdown-content">
-					<a href="#">Link 1</a>
-					<a href="#">Link 2</a>
-					<a href="#">Link 3</a>
-				</div>
-			</div>
+        <div class="dropdown">
+          <button class="dropbtn">Categories</button>
+          <div class="dropdown-content">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+          </div>
+        </div>
 
-			<form class="ib search padleft">
-				<input type="text" name="search" placeholder="Search">
-			</form>
-		</div>
-	</div>
+        <form class="ib search padleft">
+          <input type="text" name="search" placeholder="Search">
+        </form>
+      </div>
+    </div>
 
 	{% block body_block %}
 	{% endblock %}
