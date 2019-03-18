@@ -1,5 +1,5 @@
 @font-face {
-      font-family: test;
+      font-family: "Title";
       src: url("Title.ttf");
 }
 
@@ -66,7 +66,7 @@ body{
 .title1 {
       margin: 0px;
       color: #00EE00;
-      font-family: "test", "Arial";
+      font-family: "Title", "Arial";
       font-size: 80px;
       padding-top: 20px;
       padding-bottom: 0px;
@@ -76,7 +76,7 @@ body{
 .title2{
       margin: 0px;
       color: #00EE00;
-      font-family: "test", "Arial";
+      font-family: "Title", "Arial";
       font-size: 30px;
       padding-top: 20px;
       padding-bottom: 0px;
@@ -100,10 +100,29 @@ input:hover {
       border: 1px solid #00EE00;     
 }
 
-.search {
+.searchBlock{
       position:absolute;
       right: 60px;
       top: 25px;
+}
+
+.search {
+      margin-bottom: 0;
+      padding-right: 5px;
+      position: relative;
+      bottom: 0;
+}
+
+.searchButton{
+      position: relative;
+      top: 0;
+      height: 28px;
+      width: 36px;
+      background-color: #00EE00;
+      border: 2px solid #000000;
+      border-radius: 4px;
+      text-align: center;
+      color: #ffffff;
 }
 
 .giant-box{
@@ -120,6 +139,11 @@ input:hover {
       background-color:#757575;
       display: inline-block;
       box-shadow: 0 0 4px black;
+}
+
+.marginLeft{
+      margin-left: 65px;
+      margin-right: 0px;
 }
 
 .title:hover {
@@ -141,7 +165,7 @@ input:hover {
 .gameContainer{
       max-width: 90%;
       height: 290px;
-      background-color: rgb(0, 218, 0);
+      background-color: #00EE00;
       margin-top: 40px;
       box-shadow: 4px 4px 8px 0px #696969;
 }
@@ -180,9 +204,9 @@ input:hover {
 
 .Welcome{
 	  margin: 1px;
-      font-family:"test", "Arial";
-      color: #00EE00;
-	  text-align: center
+     font-family:"test", "Arial";
+     color: #00EE00;
+	  text-align: center;
 }
 
 
