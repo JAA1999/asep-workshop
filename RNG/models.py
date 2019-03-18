@@ -39,6 +39,8 @@ class Game(models.Model):
     num_critic_ratings = models.IntegerField()
     age_rating = models.CharField(max_length = 16)
     description = models.TextField()
+    #need to add into pop script
+    releasedate = models.DateField()
 
     # might need list[fk] for ratings
     def __str__(self):
