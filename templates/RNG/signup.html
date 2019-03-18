@@ -1,23 +1,39 @@
+<!DOCTYPE html>
+
+
 {% extends 'RNG/base.html' %}
 {% load staticfiles %}
 
-{% block title_block %}
-	<title>Rate New Games ~ Sign Up</title>
-{% endblock %}
+<html>
+	<head>
+		{% block title_block %}
+			<title>Rate New Games ~ Sign Up</title>
+		{% endblock %}
+	
+	{% load static %}
+	<link href={% static "css/style.css" %} rel="stylesheet" type="text/css" />
+	<link href= {% static "css/buttons.css" %} rel="stylesheet" type="text/css" />
+	</head>
 
 {% block body_block %}
-	<h1>Sign Up for RNG</h1>
-	{% if registered %}
-		<strong>You are already registered!</strong>
-		<a href="{% url 'index' %}">Return to the homepage.</a>
-		<br />
-	{% else %}
-		<s<strong>Please fill out the forms below to sign up.</strong><br />
-		<form id="user_form" method="post" action="{% url 'signup' %}" enctype="multipart/form-data">	
-			{% csrf_token %}
-			{{ user_form.as_p }}
-			{{ profile_form.as_p }}
-			<input type="submit" name="submit" value="Sign Up" />
-		</form>
-	{% endif %}
+	<body>
+		<div class="body centre">
+		<div class= "title2 ib"><u>Sign Up</u></div>
+		<br /><br />
+		{% if registered %}
+			<strong>You are already registered!</strong>
+			<a href="{% url 'index' %}">Return to the homepage.</a>
+			<br />
+		{% else %}
+			<b>Please fill out the forms below to sign up.</b>
+			<br />
+			<form id="user_form" method="post" action="{% url 'signup' %}" enctype="multipart/form-data">	
+				{% csrf_token %}
+				{{ user_form.as_p }}
+				{{ profile_form.as_p }}
+				<input type="submit" name="submit" value="Sign Up" />
+			</form>
+		{% endif %}
+		</div>
+	</body>
 {% endblock %}
