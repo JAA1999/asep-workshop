@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
@@ -6,9 +7,18 @@ from django.core.urlresolvers import reverse
 from RNG.webhose_search import run_query
 
 from RNG.models import Category, Game
-from RNG.forms import CategoryForm, UserForm, UserProfileForm
+from RNG.forms import CategoryForm, UserForm, UserProfileForm, GameForm
 
-from datetime import datetime 
+def visitor_cookie_handler(request):
+	visits = int(request.COOKIES.get("visits","1"))
+	last_visit_cookie=request.COOKIES.get("last_visit",str(datetime.now()))
+	last_visit_time=datetime.strptime(last_visit_cookie[:-7], "%Y-%,-%d %H:%M:%S")
+	if (datetime.now()-last_visit_time).days > 0:
+		visits+=1
+		request.session["last_visit"]=str(datetime.now())
+	else:
+		request.session["last_visit"]=last_visit_cookie
+	request.session["visits"]=visits
 
 def index(request):
     context_dict={}
@@ -100,12 +110,12 @@ def show_category(request, category_name_slug):
 	context_dict={}
 	try:
 		category=Category.objects.get(slug=category_name_slug)
-		pages = Game.objects.filter(category=category)
-		context_dict['pages']=pages
+		games = Game.objects.filter(category=category)
+		context_dict['games']=games
 		context_dict['category']=category
 	except Category.DoesNotExist:
 		context_dict['category']=None
-		context_dict['pages']=None
+		context_dict['games']=None
 	context_dict['query']=category.name
 	result_list=[]
 	if request.method=='POST':
@@ -115,3 +125,22 @@ def show_category(request, category_name_slug):
 			context_dict['query']=query
 			context_dict['result_list']=result_list
 	return render(request, 'RNG/category.html', context_dict)
+
+def add_game(request, category_name_slug):
+	try:
+		category=Category.objects.get(slug=category_name_slug)
+	except Category.DoesNotExist:
+		category=None
+	form=GameForm(request.POST)
+	if form.is_valid():
+		if category:
+			game=form.save(commit=False)
+			game.category=category
+			game.views=0
+			game.save()
+			return show_category(request, category_name_slug)
+		else:
+			print(form.errors)
+	context_dict={'form':form, 'category': category}
+	return render(request, "RNG/add_game.html", context_dict)
+
