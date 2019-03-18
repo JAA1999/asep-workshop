@@ -1,0 +1,5 @@
+# pycache files
+*.pyc
+
+# Database file
+*.sqlite3
