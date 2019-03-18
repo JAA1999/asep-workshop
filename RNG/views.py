@@ -8,6 +8,7 @@ from RNG.models import Category
 from RNG.forms import CategoryForm, UserForm, UserProfileForm
 
 from datetime import datetime 
+
 def index(request):
     context_dict={}
     return render(request, 'RNG/index.html', context=context_dict)
@@ -29,7 +30,6 @@ def signup(request):
 		
 		if user_form.is_valid() and profile_form.is_valid():
 			user = user_form.save()
-			user.set_password(user.password)
 			user.set_password(user.password)
 			user.save()
 			
@@ -54,6 +54,31 @@ def signup(request):
 				'profile_form': profile_form,
 				'registered': registered},
 				)
+				
+def user_login(request):
+	if request.method == 'POST':
+		username = request.POST.get('username')
+		password = request.POST.get('password')
+		
+		user = authenticate(username=username, password=password)
+		
+		if user:
+			if user.is_active:
+				login(request, user)
+				return HttpResponseRedirect(reverse('index'))
+			else:
+				return HttpResponse("Your RNG account is disabled.")
+		else:
+			print("Invalid login details: {0}, {1}".format(username, password))
+			return HttpResponse("Invalid login details supplied.")
+			
+	else:
+		return render(request, 'RNG/signin.html', {})
+		
+@login_required
+def user_logout(request):
+	logout(request)
+	return HttpResponseRedirect(reverse('index'))
 
 
 def game(request):

@@ -31,6 +31,7 @@ body{
       box-shadow: 0 4px 6px 0 #797979;
 }
 
+
 .body{
       max-width: 960px;
 }
@@ -176,3 +177,12 @@ input:hover {
       color: #323232;
       margin: 4px;
 }
+
+.Welcome{
+	  margin: 1px;
+      font-family:"test", "Arial";
+      color: #00EE00;
+	  text-align: center
+}
+
+

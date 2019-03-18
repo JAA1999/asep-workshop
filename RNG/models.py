@@ -3,7 +3,9 @@ from django.contrib.auth.models import User
 
 # Database Objects
 
-class User(models.Model):
+#Sign up doesnt work with this class so I've commented it out for now and used 
+#the defaul django user model for regualr users and changed this to a critic model
+class Critic(models.Model):
     # might use an ID integer as PK for more efficient sorting/searching
     username = models.CharField(max_length = 16, unique = True, primary_key = True)
     first_name = models.CharField(max_length = 128)
