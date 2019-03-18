@@ -9,3 +9,11 @@
 {% block body_block %}
 Category page nonsense.
 {% endblock %}
+
+<form class="form-inline" id="user_form" method="post" action="{% url 'show_category' categor.slug %}">
+	{% csrf_token %}
+	<div class="form-group">
+		<input class="form-control" type="text" size="50" name="query" value="{{ query }}" id="query" />
+	</div>
+	<button class="btn btn-primary" type="submit" name="submit" value="Search">Search</button>
+</form>

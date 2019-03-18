@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from RNG.webhose_search import run_query
 
-from RNG.models import Category
+from RNG.models import Category, Game
 from RNG.forms import CategoryForm, UserForm, UserProfileForm
 
 from datetime import datetime 
@@ -95,3 +95,23 @@ def search(request):
             #runs webhose search function
             result_list = run_query(query)
     return render(request,'RNG/search.html',{'result_list':result_list,'search_query':query})
+
+def show_category(request, category_name_slug):
+	context_dict={}
+	try:
+		category=Category.objects.get(slug=category_name_slug)
+		pages = Game.objects.filter(category=category)
+		context_dict['pages']=pages
+		context_dict['category']=category
+	except Category.DoesNotExist:
+		context_dict['category']=None
+		context_dict['pages']=None
+	context_dict['query']=category.name
+	result_list=[]
+	if request.method=='POST':
+		query=request.POST['query'].strip()
+		if query:
+			result_list=run_query(query)
+			context_dict['query']=query
+			context_dict['result_list']=result_list
+	return render(request, 'RNG/category.html', context_dict)
