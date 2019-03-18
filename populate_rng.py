@@ -1,5 +1,5 @@
 import os
-os.environ.setdefault('DJANGO_SETTINGS_MODULE','WAD_Project')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE','RNG_project.settings')
 import django
 django.setup()
 from RNG.models import Category, Game, Rating, User
@@ -29,7 +29,7 @@ def populate():
         "age_rating": 18}
     ]
     rpg=[
-                {"ID": "SKY",
+        {"ID": "SKY",
         "name": "Skyrim",
         "user_score": 5,
         "num_user_ratings": 5,

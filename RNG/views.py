@@ -29,8 +29,16 @@ def about(request):
     return render(request, 'RNG/about.html', context=context_dict)
 
 def category(request):
-    context_dict={}
-    return render(request, 'RNG/category.html', context=context_dict)
+	context_dict={}
+	"""try:
+		category=Category.objects.get(slug=category_name_slug)
+		games=Game.objects.filter(category=category)
+		context_dict['games']=games
+		context_dict['category']=category
+	except Category.DoesNotExist:
+		context_dict['category']=None
+		context_dict['pages']=None"""
+	return render(request, 'RNG/category.html', context_dict)
 
 def signup(request):
 	registered = False

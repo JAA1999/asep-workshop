@@ -1,6 +1,7 @@
 from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
 
 # Database Objects
 
@@ -40,7 +41,8 @@ class Game(models.Model):
     description = models.TextField()
 
     # might need list[fk] for ratings
-
+    def __str__(self):
+        return self.title
 
 class Rating(models.Model):
     ID = models.IntegerField(primary_key = True, unique = True)
@@ -55,4 +57,14 @@ class Category(models.Model):
     name = models.CharField(max_length=64)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     supercategory = models.ForeignKey('self', on_delete=models.CASCADE)
+
+    def save(self, *args, **kwargs):
+        self.slug=slugify(self.name)
+        super(Category,self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name_plural='Categories'
+
+    def __str__(self):
+        return self.name
 	
