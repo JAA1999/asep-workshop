@@ -1,7 +1,7 @@
 <<<<<<< HEAD
 # pycache files
 *.pyc
-
+/RNG/migrations/*
 # Database file
 *.sqlite3
 =======
