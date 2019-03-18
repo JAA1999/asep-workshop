@@ -1,83 +1,95 @@
-<!DOCTYPE html>
+{% extends 'RNG/base.html' %}
 
 {% load staticfiles %}
 
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>Rate New Games</title>
-    <link href={% static "css/style.css" %} rel="stylesheet" type="text/css" />
-    <link href= {% static "css/buttons.css" %} rel="stylesheet" type="text/css" />
-  </head>
-  <body>
-    <div class="head">
+{% block title_block %}
+	<title>Rate New Games ~ Home</title>
+{% endblock %}
 
-      <div class="top-square centre">
+{% block body_block %}
+     <div class="body centre">
       
-        <div class="title ib">
-          <p class="title1 ib">RNG.</p>
-          <div class= "title2 ib">com</div>
-        </div>
-      
-        <div class="signinBlock ib">
-          <div><button class="signin ">Sign In</button></div>
-          <div><button class="signin ">Sign Up</button></div>
-        </div>
-        
+      <div class="gameContainer centre">
+        <div class="GCTitle">New Releases</div>
+        <div class="GCgroup">
+
+          <div class="GCGame">
+            <div class="GCImg">
+              <img src={% static "images/game.jpg"%}>
+              <p class="GCName"><b>game name</b></p>
+            </div>
+          </div>
+
+          <div class="GCGame">
+            <div class="GCImg">
+              <img src={% static "images/game.jpg"%}>
+              <p class="GCName"><b>game name</b></p>
+            </div>
+          </div>
+
+          <div class="GCGame">
+            <div class="GCImg">
+              <img src={% static "images/game.jpg"%}>
+              <p class="GCName"><b>game name</b></p>
+            </div>
+          </div>
+
+          <div class="GCGame">
+            <div class="GCImg">
+              <img src={% static "images/game.jpg"%}>
+              <p class="GCName"><b>game name</b></p>
+            </div>
+          </div>
+
+          <div class="GCGame">
+            <div class="GCImg">
+              <img src={% static "images/game.jpg"%}>
+              <p class="GCName"><b>game name</b></p>
+            </div>
+          </div>
+
+        </div> 
       </div>
 
-      <div class="top-square2 sticky">
+      <div class="gameContainer centre">
+        <div class="GCTitle">Popular</div>
+        <div class="GCgroup">
 
-        <div class="dropdown padleft">
-          <button class="dropbtn">Home</button>
-          <div class="dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
+          <div class="GCGame">
+            <div class="GCImg">
+              <img src={% static "images/game.jpg"%}>
+              <p class="GCName"><b>game name</b></p>
+            </div>
           </div>
-        </div>
-        
-        <div class="line"></div>
 
-        <div class="dropdown">
-          <button class="dropbtn">About</button>
-          <div class="dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
+          <div class="GCGame">
+            <div class="GCImg">
+              <img src={% static "images/game.jpg"%}>
+              <p class="GCName"><b>game name</b></p>
+            </div>
           </div>
-        </div>
-        
-        <div class="line"></div>
 
-        <div class="dropdown">
-          <button class="dropbtn">Categories</button>
-          <div class="dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
+          <div class="GCGame">
+            <div class="GCImg">
+              <img src={% static "images/game.jpg"%}>
+              <p class="GCName"><b>game name</b></p>
+            </div>
           </div>
-        </div>
 
-        <form class="ib search padleft">
-          <input type="text" name="search" placeholder="Search">
-        </form>
+          <div class="GCGame">
+            <div class="GCImg">
+              <img src={% static "images/game.jpg"%}>
+              <p class="GCName"><b>game name</b></p>
+            </div>
+          </div>
+
+          <div class="GCGame">
+            <div class="GCImg">
+              <img src={% static "images/game.jpg"%}>
+              <p class="GCName"><b>game name</b></p>
+            </div>
+          </div>
+
+        </div> 
       </div>
-    </div>
-
-    <div class="body">
-
-      <div>
-        <p> test</p>
-        <p> test</p>
-        <p> test</p>
-        <p> test</p>
-        <p> test</p>
-        <p> test</p>
-        <!--<img class="bg" src="bg.jpg" alt="test">!-->
-      </div>
-      <div class="giant-box"></div>
-    </div>
-  </body>
-</html>
+{% endblock %}
