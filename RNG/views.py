@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from RNG.webhose_search import run_query
 
 from RNG.models import Category
 from RNG.forms import CategoryForm, UserForm, UserProfileForm
@@ -84,3 +85,13 @@ def user_logout(request):
 def game(request):
     context_dict={}
     return render(request, 'RNG/game.html', context=context_dict)
+
+def search(request):
+    result_list=[]
+    query=None
+    if request.method == 'POST':
+        query=request.POST['query'].strip()
+        if query:
+            #runs webhose search function
+            result_list = run_query(query)
+    return render(request,'RNG/search.html',{'result_list':result_list,'search_query':query})
