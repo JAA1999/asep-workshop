@@ -1,62 +1,95 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>Rate New Games</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-    <link href="buttons.css" rel="stylesheet" type="text/css" />
-  </head>
-  <body class="body">
-    <div class="top-square centre">
+{% extends 'RNG/base.html' %}
 
-      <p class="title ib">RNG</p>
-      <div class="ib">
-        <button class="signin ib">Sign In</button>
-        <button class="signin ib">Sign Up</button>
-      </div>
-    </div>
+{% load staticfiles %}
 
-    <div class="top-square2 sticky">
+{% block title_block %}
+	<title>Rate New Games ~ Home</title>
+{% endblock %}
 
-      <div class="dropdown padleft">
-        <button class="dropbtn">Home</button>
-        <div class="dropdown-content">
-          <a href="#">Link 1</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
-        </div>
-      </div>
+{% block body_block %}
+     <div class="body centre">
       
-      <div class="line"></div>
+      <div class="gameContainer centre">
+        <div class="GCTitle">New Releases</div>
+        <div class="GCgroup">
 
-      <div class="dropdown">
-        <button class="dropbtn">About</button>
-        <div class="dropdown-content">
-          <a href="#">Link 1</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
-        </div>
+          <div class="GCGame">
+            <div class="GCImg">
+              <img src={% static "images/game.jpg"%}>
+              <p class="GCName"><b>game name</b></p>
+            </div>
+          </div>
+
+          <div class="GCGame">
+            <div class="GCImg">
+              <img src={% static "images/game.jpg"%}>
+              <p class="GCName"><b>game name</b></p>
+            </div>
+          </div>
+
+          <div class="GCGame">
+            <div class="GCImg">
+              <img src={% static "images/game.jpg"%}>
+              <p class="GCName"><b>game name</b></p>
+            </div>
+          </div>
+
+          <div class="GCGame">
+            <div class="GCImg">
+              <img src={% static "images/game.jpg"%}>
+              <p class="GCName"><b>game name</b></p>
+            </div>
+          </div>
+
+          <div class="GCGame">
+            <div class="GCImg">
+              <img src={% static "images/game.jpg"%}>
+              <p class="GCName"><b>game name</b></p>
+            </div>
+          </div>
+
+        </div> 
       </div>
-      
-      <div class="line"></div>
 
-      <div class="dropdown">
-        <button class="dropbtn">Categories</button>
-        <div class="dropdown-content">
-          <a href="#">Link 1</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
-        </div>
+      <div class="gameContainer centre">
+        <div class="GCTitle">Popular</div>
+        <div class="GCgroup">
+
+          <div class="GCGame">
+            <div class="GCImg">
+              <img src={% static "images/game.jpg"%}>
+              <p class="GCName"><b>game name</b></p>
+            </div>
+          </div>
+
+          <div class="GCGame">
+            <div class="GCImg">
+              <img src={% static "images/game.jpg"%}>
+              <p class="GCName"><b>game name</b></p>
+            </div>
+          </div>
+
+          <div class="GCGame">
+            <div class="GCImg">
+              <img src={% static "images/game.jpg"%}>
+              <p class="GCName"><b>game name</b></p>
+            </div>
+          </div>
+
+          <div class="GCGame">
+            <div class="GCImg">
+              <img src={% static "images/game.jpg"%}>
+              <p class="GCName"><b>game name</b></p>
+            </div>
+          </div>
+
+          <div class="GCGame">
+            <div class="GCImg">
+              <img src={% static "images/game.jpg"%}>
+              <p class="GCName"><b>game name</b></p>
+            </div>
+          </div>
+
+        </div> 
       </div>
-
-      <form class="ib search padleft">
-        <input type="text" name="search" placeholder="Search">
-      </form>
-
-
-    </div>
-    <div class="giant-box"></div>
-    <script src="script.js"></script>
-  </body>
-</html>
+{% endblock %}
