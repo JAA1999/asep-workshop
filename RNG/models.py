@@ -24,7 +24,6 @@ class User(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=64)
-    game = models.ForeignKey(Game, on_delete=models.CASCADE)
     supercategory = models.ForeignKey('self', on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
@@ -64,11 +63,10 @@ class Rating(models.Model):
     comment = models.TextField()
     date_created = models.DateTimeField(default=datetime.now(), blank = True)
 
-
 class Comment(models.Model):
     ID = models.IntegerField(primary_key=True, unique=True)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
-    user = models.ForeignKey(Users, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
     date_created = models.DateTimeField(default=datetime.now(), blank = True)
 
