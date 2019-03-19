@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from RNG.webhose_search import run_query
 
 from RNG.models import Category, Game
-from RNG.forms import CategoryForm, UserForm, UserProfileForm, GameForm
+from RNG.forms import CategoryForm, UserForm, GameForm
 
 def visitor_cookie_handler(request):
 	visits = int(request.COOKIES.get("visits","1"))
@@ -45,32 +45,23 @@ def signup(request):
 	
 	if request.method == 'POST':
 		user_form = UserForm(data=request.POST)
-		profile_form = UserProfileForm(data=request.POST)
-		
-		if user_form.is_valid() and profile_form.is_valid():
+
+		if user_form.is_valid():
 			user = user_form.save()
-			user.set_password(user.password)
+			
+			username = user_form['username']
+			password = user_form['password']
 			user.save()
-			
-			profile = profile_form.save(commit=False)
-			profile.user = user
-			
-			if 'picture' in request.FILES:
-				profile.picture = request.FILES['picture']
-			
-			profile.save()
-			
+		
 			registered = True
 		else:
-			print(user_form.errors, profile_form.errors)
+			print(user_form.errors)
 	else:
 		user_form = UserForm()
-		profile_form = UserProfileForm()
 		
 	return render(request,
 				'RNG/signup.html',
 				{'user_form': user_form,
-				'profile_form': profile_form,
 				'registered': registered},
 				)
 				
