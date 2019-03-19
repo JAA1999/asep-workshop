@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from RNG.webhose_search import run_query
 
 from RNG.models import Category, Game
-from RNG.forms import CategoryForm, UserForm, GameForm
+from RNG.forms import CategoryForm, UserForm, GameForm, UserProfileForm
 
 def visitor_cookie_handler(request):
 	visits = int(request.COOKIES.get("visits","1"))

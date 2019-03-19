@@ -24,7 +24,6 @@ class UserProfile(models.Model):
     slug = models.SlugField(max_length=40)
 
     def __str__(self):
-         return self.username
          return self.user.username
 
     def save(self, *args, **kwargs):
