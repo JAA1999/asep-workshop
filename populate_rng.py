@@ -13,7 +13,7 @@ def populate():
         "critic_score": 5,
         "num_critic_ratings": 5,
         "age_rating": 18},
-        {"is": "GTAV",
+        {"id": "GTAV",
         "name": "Grand Theft Auto V",
         "user_score": 5,
         "num_user_ratings": 5,
