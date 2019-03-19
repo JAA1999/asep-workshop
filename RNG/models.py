@@ -22,6 +22,12 @@ class User(models.Model):
     website = models.URLField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     timestamp = models.DateTimeField(default=timezone.now, blank=True)
+
+    slug = models.SlugField(max_length=40)
+
+    def save(self, *args, **kwargs):
+        self.slug=slugify(self.username)
+        super(User,self).save(*args, **kwargs)
 	
     def __str__(self):
          return self.username
@@ -29,6 +35,8 @@ class User(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=64)
     supercategory = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
+
+    slug = models.SlugField(max_length=40)
 
     def save(self, *args, **kwargs):
         self.slug=slugify(self.name)
@@ -53,6 +61,12 @@ class Game(models.Model):
     description = models.TextField()
     releasedate = models.DateField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    slug = models.SlugField(max_length=40)
+
+    def save(self, *args, **kwargs):
+        self.slug=slugify(self.name)
+        super(Game, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
