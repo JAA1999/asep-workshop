@@ -49,16 +49,15 @@ class Category(models.Model):
 class Game(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length = 64)
-
     user_score = models.FloatField()
     num_user_ratings = models.IntegerField()
     critic_score = models.FloatField()
     num_critic_ratings = models.IntegerField()
-
     age_rating = models.CharField(max_length = 16)
     description = models.TextField()
     releasedate = models.DateField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    picture = models.ImageField(upload_to='game_images',blank=True)
 
     slug = models.SlugField(max_length=40)
 
