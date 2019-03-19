@@ -1,10 +1,13 @@
-from django.utils import timezone
 from django.db import models
+from django.utils import timezone
+import uuid
+
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import AbstractUser
 
 
 # Database Objects
+# Remember to migrate!
 
 class User(models.Model):
     # might use an ID integer as PK for more efficient sorting/searching
@@ -37,7 +40,7 @@ class Category(models.Model):
         return self.name
 
 class Game(models.Model):
-    ID = models.IntegerField(primary_key = True, unique = True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length = 64)
 
     user_score = models.FloatField()
@@ -55,7 +58,7 @@ class Game(models.Model):
 
 
 class Rating(models.Model):
-    ID = models.IntegerField(primary_key = True, unique = True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     score = models.FloatField()
     username = models.ForeignKey(User, on_delete=models.CASCADE)
     critic_rating = models.BooleanField()   # optional
@@ -64,7 +67,7 @@ class Rating(models.Model):
     timestamp = models.DateTimeField(default=timezone.now, blank = True)
 
 class Comment(models.Model):
-    ID = models.IntegerField(primary_key=True, unique=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
