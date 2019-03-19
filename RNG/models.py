@@ -28,7 +28,7 @@ class User(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=64)
-    supercategory = models.ForeignKey('self', on_delete=models.CASCADE)
+    supercategory = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
         self.slug=slugify(self.name)
