@@ -1,10 +1,12 @@
 from django.contrib import admin
-from RNG.models import User, Game, Rating, Category, Comment
+from RNG.models import Users, Game
+from django.contrib.auth.models import User, Group
+
+
+admin.site.unregister(User)
+admin.site.unregister(Group)
 
 # Register your models here.
 
-admin.site.register(User)
+admin.site.register(Users)
 admin.site.register(Game)
-admin.site.register(Rating)
-admin.site.register(Category)
-admin.site.register(Comment)

@@ -19,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR= os.path.join(BASE_DIR, 'templates')
 
 STATIC_DIR= os.path.join(BASE_DIR, 'static')
-STATIC_ROOT = os.path.join(BASE_DIR,'static', 'static_root')
+STATIC_ROOT = STATIC_DIR
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static', 'static_dirs'),)
 
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'RNG',
+	'registration'
 ]
 
 MIDDLEWARE = [
@@ -144,3 +145,9 @@ MEDIA_URL='/media/'
 #STATICFILES_DIR=[STATIC_DIR,]
 
 STATIC_URL = '/static/'
+
+REGISTRATION_OPEN = True
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN= True
+LOGIN_REDIRECT_URL = "/rng/"
+LOGIN_URL='/accounts/login/'

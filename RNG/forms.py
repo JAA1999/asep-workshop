@@ -1,6 +1,5 @@
 from django import forms
-from RNG.models import User, Category, UserProfile, Game, Game
-from django.contrib.auth.models import User
+from RNG.models import Users, Category, Game
 
 class CategoryForm(forms.ModelForm):
 	name = forms.CharField(max_length=128,
@@ -35,13 +34,9 @@ class GameForm(forms.ModelForm):
 			return cleaned_data
 
 class UserForm(forms.ModelForm):
-	password = forms.CharField(widget=forms.PasswordInput())
+	username = forms.CharField(max_length = 16, help_text="Create a username of a max 16 characters long.",required = True)
+	password = forms.CharField(widget=forms.PasswordInput(),max_length = 32, help_text="Create a password of at least 8 characters long ",required=True)
 
 	class Meta:
-		model = User
-		fields = ("username", "email", "password")
-
-class UserProfileForm(forms.ModelForm):
-	class Meta:
-		model = UserProfile
-		fields = ("website", "picture")
+		model = Users
+		fields = ("email", "username",  "password")
