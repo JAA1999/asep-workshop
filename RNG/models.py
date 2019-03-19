@@ -9,8 +9,9 @@ from django.contrib.auth.models import AbstractUser
 # Database Objects
 # Remember to migrate!
 
+# ID refs should autogenerate
+
 class User(models.Model):
-    # might use an ID integer as PK for more efficient sorting/searching
     username = models.CharField(max_length = 16, unique = True, primary_key = True)
     password = models.CharField(max_length = 32)    # uses password hasher in the forms.py
     first_name = models.CharField(max_length=128)
