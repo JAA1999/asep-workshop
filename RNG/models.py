@@ -1,4 +1,4 @@
-from datetime import datetime
+from django.utils import timezone
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import AbstractUser
@@ -17,7 +17,7 @@ class User(models.Model):
 	
     website = models.URLField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
-    date_joined = models.DateTimeField(default=datetime.now(), blank=True)
+    timestamp = models.DateTimeField(default=timezone.now, blank=True)
 	
     def __str__(self):
          return self.username
@@ -61,14 +61,14 @@ class Rating(models.Model):
     critic_rating = models.BooleanField()   # optional
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     comment = models.TextField()
-    date_created = models.DateTimeField(default=datetime.now(), blank = True)
+    timestamp = models.DateTimeField(default=timezone.now, blank = True)
 
 class Comment(models.Model):
     ID = models.IntegerField(primary_key=True, unique=True)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
-    date_created = models.DateTimeField(default=datetime.now(), blank = True)
+    timestamp = models.DateTimeField(default=timezone.now, blank = True)
 
     supercomment = models.ForeignKey('self', on_delete=models.CASCADE)
 

@@ -1,5 +1,5 @@
 from django import forms
-from RNG.models import Users, Category, Game
+from RNG.models import User, Category, Game
 
 class CategoryForm(forms.ModelForm):
 	name = forms.CharField(max_length=128,
@@ -38,5 +38,5 @@ class UserForm(forms.ModelForm):
 	password = forms.CharField(widget=forms.PasswordInput(),max_length = 32, help_text="Create a password of at least 8 characters long ",required=True)
 
 	class Meta:
-		model = Users
+		model = User
 		fields = ("email", "username",  "password")
