@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser
 
 # Database Objects
 
-class Users(models.Model):
+class User(models.Model):
     # might use an ID integer as PK for more efficient sorting/searching
     username = models.CharField(max_length = 16, unique = True, primary_key = True)
     password = models.CharField(max_length = 32)    # uses password hasher in the forms.py
@@ -22,32 +22,6 @@ class Users(models.Model):
     def __str__(self):
          return self.username
 
-
-class Game(models.Model):
-    ID = models.IntegerField(primary_key = True, unique = True)
-    name = models.CharField(max_length = 64)
-    user_score = models.FloatField()
-    num_user_ratings = models.IntegerField()
-    critic_score = models.FloatField()
-    num_critic_ratings = models.IntegerField()
-    age_rating = models.CharField(max_length = 16)
-    description = models.TextField()
-    #need to add into pop script
-    releasedate = models.DateField()
-
-    def __str__(self):
-        return self.name
-
-class Rating(models.Model):
-    ID = models.IntegerField(primary_key = True, unique = True)
-    score = models.FloatField()
-    username = models.ForeignKey(Users, on_delete=models.CASCADE)
-    critic_rating = models.BooleanField()   # optional
-    game = models.ForeignKey(Game, on_delete=models.CASCADE)
-    comment = models.TextField()
-    date_created = models.DateTimeField(default=datetime.now(), blank = True)
-
-
 class Category(models.Model):
     name = models.CharField(max_length=64)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
@@ -62,6 +36,34 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+class Game(models.Model):
+    ID = models.IntegerField(primary_key = True, unique = True)
+    name = models.CharField(max_length = 64)
+
+    user_score = models.FloatField()
+    num_user_ratings = models.IntegerField()
+    critic_score = models.FloatField()
+    num_critic_ratings = models.IntegerField()
+
+    age_rating = models.CharField(max_length = 16)
+    description = models.TextField()
+    releasedate = models.DateField()
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+
+class Rating(models.Model):
+    ID = models.IntegerField(primary_key = True, unique = True)
+    score = models.FloatField()
+    username = models.ForeignKey(User, on_delete=models.CASCADE)
+    critic_rating = models.BooleanField()   # optional
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    comment = models.TextField()
+    date_created = models.DateTimeField(default=datetime.now(), blank = True)
+
 
 class Comment(models.Model):
     ID = models.IntegerField(primary_key=True, unique=True)
