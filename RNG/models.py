@@ -1,34 +1,28 @@
 from datetime import datetime
 from django.db import models
-from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from django.contrib.auth.models import AbstractUser
+
 
 # Database Objects
 
 #Sign up doesnt work with this class so I've commented it out for now and used 
 #the defaul django user model for regualr users and changed this to a critic model
-class Critic(models.Model):
+class Users(models.Model):
     # might use an ID integer as PK for more efficient sorting/searching
     username = models.CharField(max_length = 16, unique = True, primary_key = True)
-    first_name = models.CharField(max_length = 128)
-    last_name = models.CharField(max_length = 128)
-    email = models.EmailField()     # might need additional parameters
+    password = models.CharField(max_length = 32)
+    email = models.EmailField(blank=True)     # make unique = true later
 	
     # password      need to setup password hasher etc
-    critic = models.BooleanField()
+    critic = models.BooleanField(default=False)
     website = models.URLField(blank=True)    # not sure if optional is a param or if it is just left null
-    description = models.TextField()
+    description = models.TextField(blank=True)
+	
+    def __str__(self):
+         return self.username
 
     # might need list[fk] for ratings
-
-class UserProfile(models.Model):
-	user =  models.OneToOneField(User)
-	
-	website = models.URLField(blank=True)
-	picture = models.ImageField(upload_to='profile_images', blank=True)
-	
-	def __str__(self):
-		return self.user.username
 
 class Game(models.Model):
     ID = models.IntegerField(primary_key = True, unique = True)
@@ -49,7 +43,7 @@ class Game(models.Model):
 class Rating(models.Model):
     ID = models.IntegerField(primary_key = True, unique = True)
     score = models.FloatField()
-    username = models.ForeignKey(User, on_delete=models.CASCADE)
+    username = models.ForeignKey(Users, on_delete=models.CASCADE)
     critic_rating = models.BooleanField()   # optional
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     comment = models.TextField()
