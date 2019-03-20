@@ -7,23 +7,24 @@ from django.template.defaultfilters import slugify
 # New AbstractBaseUser extension
 from django.contrib.auth.models import AbstractUser
 
-#Jason's User extension
-#from django.contrib.auth.models import User
-# from django.db.models.signals import post_save
-# from django.dispatch import receiver
+from django.db.models.signals import post_save  # try to implement post_save to update ratings
+from django.dispatch import receiver
+from django.db.models.signals import pre_delete
 
 
 # Database Objects
 # Remember to migrate!
+# Use python manage.py migrate --run-syncdb
 
 # ID refs should autogenerate
 
 class UserProfile(AbstractUser):
+    # AbstractUser relevant fields:
+    # username, password, first_name, last_name, date_joined, email, last_login
     critic = models.BooleanField(default=False)
     website = models.URLField(null=True, blank=True)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
+    picture = models.ImageField(upload_to='profile_images', null=True, blank=True)
     description = models.TextField(null=True, blank=True)
-    timestamp = models.DateTimeField(default=timezone.now, blank=True)
 
     slug = models.SlugField(max_length=40)
 
@@ -86,17 +87,66 @@ class Rating(models.Model):
     critic_rating = models.BooleanField()   # optional
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     comment = models.TextField()
-    timestamp = models.DateTimeField(default=timezone.now, blank = True)
+    timestamp = models.DateTimeField(default=timezone.now, blank=True)
+
+    def save(self, *args, **kwargs):
+        def add_rating(self, cur_rating, num_ratings):
+            new_num_ratings = num_ratings + 1
+            new_rating = ((cur_rating * num_ratings) + self.score) / new_num_ratings
+            return new_rating, new_num_ratings
+
+        if self.critic_rating:
+            cur_rating = self.game.avg_critic_rating
+            num_ratings = self.game.num_critic_ratings
+            cur_rating, num_ratings = add_rating(self, cur_rating, num_ratings)
+            self.game.avg_critic_rating = cur_rating
+            self.game.num_critic_ratings = num_ratings
+        else:
+            cur_rating = self.game.avg_user_rating
+            num_ratings = self.game.num_user_ratings
+            cur_rating, num_ratings = add_rating(self, cur_rating, num_ratings)
+            self.game.avg_user_rating = cur_rating
+            self.game.num_user_ratings = num_ratings
+
+        super(Rating, self).save(*args, **kwargs)   # might go at end to exec code after saved
+
 
 class Comment(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     text = models.TextField()
-    timestamp = models.DateTimeField(default=timezone.now, blank = True)
+    timestamp = models.DateTimeField(default=timezone.now, blank=True)
 
     supercomment = models.ForeignKey('self', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.text
-	
+
+
+# signals/receivers
+
+def rating_deleted(sender, instance, **kwargs):
+    # update averages
+    score = instance.score
+
+    def remove_rating(cur_rating, num_rating):
+        new_num_rating = num_rating - 1
+        new_rating = ((cur_rating * num_rating) - score) / new_num_rating
+        return new_rating, new_num_rating
+
+    if instance.critic_rating:
+        # is critic rating
+        cur_rating = instance.game.avg_critic_rating
+        num_rating = instance.game.num_critic_ratings
+        cur_rating, num_rating = remove_rating(cur_rating, num_rating)
+        instance.game.avg_critic_rating = cur_rating
+        instance.game.num_critic_ratings = num_rating
+    else:
+        cur_rating = instance.game.avg_user_rating
+        num_rating = instance.game.num_user_ratings
+        cur_rating, num_rating = remove_rating(cur_rating, num_rating)
+        instance.game.avg_user_rating = cur_rating
+        instance.game.num_user_ratings = num_rating
+
+pre_delete.connect(rating_deleted, sender=Rating)
