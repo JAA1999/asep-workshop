@@ -90,12 +90,14 @@ class Rating(models.Model):
 
 class Comment(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+	
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    text = models.TextField()
+    content = models.TextField()
     timestamp = models.DateTimeField(default=timezone.now, blank = True)
+    #reply = models.ForeignKey('Comment', null=True, related_names= "replies")
 
-    supercomment = models.ForeignKey('self', on_delete=models.CASCADE)
+    #supercomment = models.ForeignKey('self', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.text
+        return '{} - {}'.format(self.game.name, str(self.user.username))

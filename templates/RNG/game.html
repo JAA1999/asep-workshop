@@ -3,6 +3,7 @@
 {% load staticfiles %}
 
 {% block body_block %}
+
 <div class="body centre">
 	{% if game %}
     <div class = "mostViewed centre">
@@ -23,6 +24,29 @@
                 <div class = "rating ib"><p class="fc centre">Placeholder</p></div>
             </div>
         </div>
+		
+		<div class="comments">
+			<div class= "title2 ib">{{ comments.count }} Comment{{ comments|pluralize }}</div>
+			{% if user.is_authenticated %}
+				<form method='post'>
+					{% csrf_token %}
+					{{ comment_form.as_p }}
+				<input type="submit" value="Comment">
+				</form>
+			{% else %}
+				<br />
+				Only singed in users can leave comments. You can <a href="{% url 'auth_login' %}">sign in here</a> or 
+				<a href="{% url 'registration_register' %}">sign up here!</a>
+			{% endif %}
+			
+			{% for comment in comments %}
+				<hr>
+				<b>{{ comment.user }} says: </b><br />
+				<p>{{ comment.content }}</p>
+				<p>{{ comment.timestamp }}</p>
+				<hr>
+			{% endfor %}
+		</div>
 	{% else %}
 		Something went wrong.
 	{% endif %}
