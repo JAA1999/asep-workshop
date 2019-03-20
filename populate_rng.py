@@ -4,6 +4,13 @@ import django
 django.setup()
 from RNG.models import Category, Game, Rating, UserProfile
 
+import random
+from string import ascii_lowercase  # for username
+
+# TODO:
+# randomly generate values for game fields
+# generate ratings for games
+
 def populate():
     #creates a list of dictionaries containing games to add into each category
     action=[
@@ -210,11 +217,33 @@ def populate():
             "Simulation":simulation,
     }
 
+    def generate_string(length):
+        return "".join(random.choice(ascii_lowercase) for i in range(length))
+
+    def generate_user(critic):
+        username = generate_string(10)
+        first_name = generate_string(10)
+        last_name = generate_string(10)
+        user = UserProfile.objects.get_or_create(username=username, first_name=first_name,
+                                                 last_name=last_name)[0]
+        user.save()
+        return user
+
+    def generate_rating(game, user):
+        # generate random val between 1-10
+        score = random.randint(1, 10)
+        rating = Rating.objects.get_or_create(score=score, game=game, username=user,
+                                              critic_rating=user.critic)[0]
+        return rating
+
+    def generate_comment():
+
+
     def add_game(cat, name, age_rating):
         # [0] specifies object in the [object, boolean created]
-        p = Game.objects.get_or_create(category=cat, name=name, age_rating=age_rating)[0]
-        p.save()
-        return p
+        game = Game.objects.get_or_create(category=cat, name=name, age_rating=age_rating)[0]
+        game.save()
+        return game
 
     def add_cat(name):
         c=Category.objects.get_or_create(name=name)[0]
@@ -234,6 +263,7 @@ def populate():
     for c in Category.objects.all():
         for p in Game.objects.filter(category=c):
             print("- {0} - {1}".format(str(c),str(p)))
+
 
 
 if __name__ == '__main__':
