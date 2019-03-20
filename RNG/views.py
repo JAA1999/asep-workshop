@@ -1,13 +1,13 @@
 from datetime import datetime
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from RNG.webhose_search import run_query
 
-from RNG.models import Category, Game
-from RNG.forms import CategoryForm, UserForm, GameForm, UserProfileForm
+from RNG.models import Category, Game, Comment
+from RNG.forms import CategoryForm, UserForm, GameForm, UserProfileForm, CommentForm
 
 def visitor_cookie_handler(request):
 	visits = int(request.COOKIES.get("visits","1"))
@@ -124,9 +124,24 @@ def category(request, category_name_slug):
 	return render(request, 'RNG/category.html', context_dict)
 	
 def game(request, category_name_slug, game_name_slug):
-	context_dict={}
+
 	game = Game.objects.get(slug=game_name_slug)
-	context_dict['game']=game
+	comments = Comment.objects.filter(game=game).order_by('-id')
+	comments = Comment.objects.filter(game=game).order_by('-id')
+				
+	if request.method == 'POST':
+		comment_form = CommentForm(request.POST or None)
+		if comment_form.is_valid():
+			content = request.POST.get('content')
+			comment = Comment.objects.create(game=game, user=request.user, content=content)
+			comment.save()
+	else:
+		comment_form = CommentForm()
+		
+	context_dict={'game':game, 
+			'comments': comments,
+			'comment_form': comment_form,}
+			
 	return render(request, 'RNG/game.html', context=context_dict)
 
 def search(request):
