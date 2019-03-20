@@ -2,7 +2,7 @@ import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','RNG_project.settings')
 import django
 django.setup()
-from RNG.models import Category, Game, Rating, UserProfile
+from RNG.models import Category, Game, Rating, UserProfile, Comment
 
 import random
 from string import ascii_lowercase  # for username
@@ -237,7 +237,9 @@ def populate():
         return rating
 
     def generate_comment():
-
+        content = generate_string(100)
+        comment = Comment.objects.get_or_create(content=content)[0]
+        return comment
 
     def add_game(cat, name, age_rating):
         # [0] specifies object in the [object, boolean created]
@@ -254,11 +256,19 @@ def populate():
     #     c=add_cat(cat, cats[cat]["views"]["likes"])
     #     for p in cat_data["games"]:
     #         add_game(c,p["name"],p["url"],p["views"])
+
+    # generate users
+    NUM_REGULAR_USERS = 100
+    NUM_CRITIC_USERS = 20
+
+    
+
     
     for name, games in cats.items():
-        cat = add_cat(name)
-        for game in games:
+        cat = add_cat(name) # generate categories
+        for game in games:  # generate games for those categories
             add_game(cat, name=game["name"], age_rating=game["age_rating"])
+
     
     for c in Category.objects.all():
         for p in Game.objects.filter(category=c):

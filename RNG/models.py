@@ -118,7 +118,7 @@ class Comment(models.Model):
     rating = models.ForeignKey(Rating, on_delete=models.CASCADE)
 
     content = models.TextField()
-    timestamp = models.DateTimeField(default=timezone.now, blank = True)
+    timestamp = models.DateTimeField(default=timezone.now, blank=True)
 
     supercomment = models.ForeignKey('self', on_delete=models.CASCADE)
 
@@ -126,4 +126,4 @@ class Comment(models.Model):
         return '{} - {}'.format(self.game.name, str(self.user.username))
 
 
-import signals
+import RNG.signals
