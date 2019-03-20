@@ -2,7 +2,7 @@ import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','RNG_project.settings')
 import django
 django.setup()
-from RNG.models import Category, Game, Rating, User
+from RNG.models import Category, Game, Rating, UserProfile
 
 def populate():
     #creates a list of dictionaries containing games to add into each category
@@ -149,37 +149,51 @@ def populate():
         "age_rating": 3}
     ]
 
-    cats={"Action":{"games":action, "reviews":0},
-        "RPG":{"games":rpg, "reviews":0},
-        "Strategy":{"games":strategy, "reviews":0},
-        "Puzzle":{"games":puzzle, "reviews":0},
-        "Sports":{"games":sports, "reviews":0},
-        "MMO":{"games":mmo, "reviews":0},
-        "Simulation":{"games":simulation, "reviews":0},
+    # cats={"Action":{"games":action, "reviews":0},
+    #     "RPG":{"games":rpg, "reviews":0},
+    #     "Strategy":{"games":strategy, "reviews":0},
+    #     "Puzzle":{"games":puzzle, "reviews":0},
+    #     "Sports":{"games":sports, "reviews":0},
+    #     "MMO":{"games":mmo, "reviews":0},
+    #     "Simulation":{"games":simulation, "reviews":0},
+    # }
+    
+    # maintained dict structure here in case we want to add supercategories
+    cats = {"Action":action,
+            "RPG":rpg,
+            "Strategy":strategy,
+            "Puzzle":puzzle,
+            "Sports":sports,
+            "MMO":mmo,
+            "Simulation":simulation,
     }
 
-    for cat, cat_data in cats.items():
-        c=add_cat(cat, cats[cat]["views"]["likes"])
-        for p in cat_data["games"]:
-            add_game(c,p["name"],p["url"],p["views"])
+    def add_game(cat, name, age_rating):
+        # [0] specifies object in the [object, boolean created]
+        p = Game.objects.get_or_create(category=cat, name=name, age_rating=age_rating)[0]
+        p.save()
+        return p
+
+    def add_cat(name):
+        c=Category.objects.get_or_create(name=name)[0]
+        c.save()
+        return c
+
+    # for cat, cat_data in cats.items():
+    #     c=add_cat(cat, cats[cat]["views"]["likes"])
+    #     for p in cat_data["games"]:
+    #         add_game(c,p["name"],p["url"],p["views"])
+    
+    for name, games in cats.items():
+        cat = add_cat(name)
+        for game in games:
+            add_game(cat, name=game["name"], age_rating=game["age_rating"])
+    
     for c in Category.objects.all():
         for p in Game.objects.filter(category=c):
             print("- {0} - {1}".format(str(c),str(p)))
 
-    def add_game(cat, title, url, views):
-        p = Game.objects.get_or_create(category=cat,title=title)[0]
-        p.url = url
-        p.views = views
-        p.save()
-        return p
 
-    def add_cat(name,views,likes):
-        c=Category.objects.get_or_create(name=name)[0]
-        c.views=views
-        c.likes=likes
-        c.save()
-        return c
-
-    if __name__ == '__main__':
-        print("*** Starting RNG population script ***")
-        populate()
+if __name__ == '__main__':
+    print("*** Starting RNG population script ***")
+    populate()
