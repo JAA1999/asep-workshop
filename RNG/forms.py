@@ -1,5 +1,5 @@
 from django import forms
-from RNG.models import UserProfile, Category, Game
+from RNG.models import UserProfile, Category, Game, Comment
 from django.contrib.auth.models import User
 
 class CategoryForm(forms.ModelForm):
@@ -46,3 +46,7 @@ class UserProfileForm(forms.ModelForm):
 		model = UserProfile
 		fields = ("website", "picture")
 
+class CommentForm(forms.ModelForm):
+	class Meta:
+		model = Comment
+		fields = ("content", )

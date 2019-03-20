@@ -9,7 +9,7 @@ from django.contrib.auth.models import AbstractUser
 
 from django.db.models.signals import post_save  # try to implement post_save to update ratings
 from django.dispatch import receiver
-from django.db.models.signals import pre_delete
+from django.db.models.signals import pre_delete, pre_save
 
 
 # Database Objects
@@ -83,10 +83,9 @@ class Game(models.Model):
 class Rating(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     score = models.FloatField()
-    username = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     critic_rating = models.BooleanField()   # optional
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
-    comment = models.TextField()
     timestamp = models.DateTimeField(default=timezone.now, blank=True)
 
     def save(self, *args, **kwargs):
@@ -113,40 +112,18 @@ class Rating(models.Model):
 
 class Comment(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    text = models.TextField()
-    timestamp = models.DateTimeField(default=timezone.now, blank=True)
+    rating = models.ForeignKey(Rating, on_delete=models.CASCADE)
+
+    content = models.TextField()
+    timestamp = models.DateTimeField(default=timezone.now, blank = True)
 
     supercomment = models.ForeignKey('self', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.text
+        return '{} - {}'.format(self.game.name, str(self.user.username))
 
 
-# signals/receivers
-
-def rating_deleted(sender, instance, **kwargs):
-    # update averages
-    score = instance.score
-
-    def remove_rating(cur_rating, num_rating):
-        new_num_rating = num_rating - 1
-        new_rating = ((cur_rating * num_rating) - score) / new_num_rating
-        return new_rating, new_num_rating
-
-    if instance.critic_rating:
-        # is critic rating
-        cur_rating = instance.game.avg_critic_rating
-        num_rating = instance.game.num_critic_ratings
-        cur_rating, num_rating = remove_rating(cur_rating, num_rating)
-        instance.game.avg_critic_rating = cur_rating
-        instance.game.num_critic_ratings = num_rating
-    else:
-        cur_rating = instance.game.avg_user_rating
-        num_rating = instance.game.num_user_ratings
-        cur_rating, num_rating = remove_rating(cur_rating, num_rating)
-        instance.game.avg_user_rating = cur_rating
-        instance.game.num_user_ratings = num_rating
-
-pre_delete.connect(rating_deleted, sender=Rating)
+import signals
