@@ -11,7 +11,7 @@
 				<a class="MVtop" href="{% url 'game' category.slug game.slug %}"><img src={% static "images/largeGame.jpg"%} alt="GameImage"></a>
 			</div>
 			<div class = "MVtext">
-				<div class = "MVTitle">{{game.name}}</div>        
+				<a class="MVtop" href="{% url 'game' category.slug game.slug %}"><div class = "MVTitle"><u>{{game.name}}</u></div></a>
 			</div>
 		</div>
 		{% endfor %}

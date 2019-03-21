@@ -7,10 +7,10 @@
 		{% for cat in category %}
 		<div class = "mostViewed centre">    
 			<div class = "MVimageBlock ib">
-				<a href="{% url 'category' cat.slug %}"><img src={% static "images/largeGame.jpg"%} alt="CategoryImage"></a>
+				<a href="{% url 'category' cat.slug %}"><img src="{% static "images/Action.jpg"%}" alt="CategoryImage"></a>
 			</div>
 			<div class = "MVtext">
-				<div class = "MVTitle">{{cat.name}}</div>        
+				<a href="{% url 'category' cat.slug %}"><div class = "MVTitle"><u>{{cat.name}}</u></div></a>
 			</div>
 		</div>
 		
