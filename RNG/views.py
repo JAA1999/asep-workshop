@@ -174,10 +174,10 @@ def search(request):
 	if request.method == 'GET':
 		game_name = request.GET.get('search')
 		try:
-			status = Add_prod.objects.filter(gamename__icontains=game_name)
+			status = Game.objects.filter(name__icontains=game_name)
 		except:
-			pass
-		return render(request, "search.html", {})
+			return render(request, "wubba",{})
+		return render(request, "RNG/search.html", {"games":status})
 	else:
-		return render(request, "search.html", {})
+		return render(request, "RNG/search.html", {})
 

@@ -3,9 +3,24 @@
 {% block title %} Search {% endblock %}
 {% block body_block %}
 {% if games %}
-{% for each_game in games %}
-    <a href="{% url 'game' pk=each_game.pk %"}>
-        <img src="{{each_game.image.url}}" alt="No image">
-    </a>
-    <p>{{each_game.gamename</p>
+{% for game in games %}
+    <div class="body centre">
+        <div class="mostViewed centre">
+        <div class= "MVimageBlock ib">
+          <a href="{% url 'game' game.category.slug game.slug %}">
+            <img src="{{game.image.url}}" alt="Game image">
+           </a><!-- this is for the django tag!-->
+        </div>
+        <div class="MVtext">
+          <a href="{% url 'game' game.category.slug game.slug %}"><div class="MVTitle"><u>{{game.name}}</u></div></a>
+          <div class="MVname"></div><!-- this is for the django tag!-->
+          <div class="MVdescription">
+            <pre>{{game.description}}</pre><!-- this is for the django tag!-->
+          </div>
+        </div>
+        
+      </div>
+    </div>
+{% endfor %}
+{% endif %}
 {% endblock %}
