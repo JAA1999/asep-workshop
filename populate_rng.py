@@ -241,8 +241,7 @@ def populate():
         if comment is None:
             comment = Comment.objects.get_or_create(user=user, game=game, content=content)[0]
         else:
-            comment = Comment.objects.get_or_create(user=user, game=game, content=content,
-                                                    supercomment=comment)[0]
+            comment = Comment.objects.get_or_create(user=user, game=game, content=content)[0]
         comment.save()
         return comment
 
