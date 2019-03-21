@@ -5,6 +5,12 @@ from django.template.defaultfilters import slugify
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import Permission
 
+# TODO:
+# Should add manage.py command to create groups
+# Set group permissions for critics and reg users
+# use clean() to make sure user is in correct group according to critic bool
+# https://stackoverflow.com/questions/22250352/programmatically-create-a-django-group-with-permissions
+
 # Database Objects
 # Remember to migrate!
 # Use python manage.py migrate --run-syncdb
@@ -19,9 +25,6 @@ class UserProfile(AbstractUser):
     description = models.TextField(null=True, blank=True)
 
     slug = models.SlugField(max_length=40)
-
-    # set user permissions
-
 
     def save(self, *args, **kwargs):
         self.slug=slugify(self.username)
