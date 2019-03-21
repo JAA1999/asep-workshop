@@ -8,8 +8,10 @@ urlpatterns = [
     url(r'^about/', views.about, name='about'),
     url(r'^category/$', views.show_categories, name='show_categories'),
     url(r'^category/(?P<category_name_slug>[\w\-]+)/$', views.category, name='category'),
-	url(r'^category/(?P<category_name_slug>[\w\-]+)/(?P<game_name_slug>[\w\-]+)/$', views.game, name='game'),
-    url(r'^category/(?P<category_name_slug>[\w\-]+)/add_game/$', views.add_game, name='add_game'),
+	url(r'^category/(?P<category_name_slug>[\w\-]+)/(?P<game_name_slug>[\w\-]+)/$', views.gameV, name='game'),
+	
+    url(r'^add_game/$', views.add_gameV, name='add_game'),
+	
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^signin/$', views.user_login, name='signin'),
     url(r'^signout/$', views.user_logout, name='signout'),

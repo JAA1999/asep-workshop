@@ -108,7 +108,7 @@ def category(request, category_name_slug):
 	context_dict={}
 	try:
 		category=Category.objects.get(slug=category_name_slug)
-		games = Game.objects.filter(category=category)
+		games = Game.objects.filter(category=category, is_approved=True)
 		context_dict['games']=games
 		context_dict['category']=category
 	except Category.DoesNotExist:
@@ -124,7 +124,7 @@ def category(request, category_name_slug):
 			#context_dict['result_list']=result_list
 	return render(request, 'RNG/category.html', context_dict)
 	
-def game(request, category_name_slug, game_name_slug):
+def gameV(request, category_name_slug, game_name_slug):
 
 	game = Game.objects.get(slug=game_name_slug)
 	comments = Comment.objects.filter(game=game).order_by('-timestamp')
@@ -156,21 +156,30 @@ def search(request):
 
 
 
-def add_game(request, category_name_slug):
-	try:
-		category=Category.objects.get(slug=category_name_slug)
-	except Category.DoesNotExist:
-		category=None
-	form=GameForm(request.POST)
-	if form.is_valid():
-		if category:
-			game=form.save(commit=False)
-			game.category=category
-			game.views=0
+def add_gameV(request):
+	game_form = GameForm()
+	if request.method == 'POST':
+		game_form = GameForm(data=request.POST)
+		
+		if game_form.is_valid():
+			game = game_form.save(commit=False)
+			
 			game.save()
-			return show_category(request, category_name_slug)
+			
+			
+			#if 'picture' in request.FILES:
+				#profile.picture = request.FILES['picture']
+				
+			#profile.save()
+			
+			
 		else:
-			print(form.errors)
-	context_dict={'form':form, 'category': category}
+			print(game_form.errors)
+	else:
+		game_form = GameForm()
+		
+			
+			
+	context_dict={'game_form':game_form}
 	return render(request, "RNG/add_game.html", context_dict)
 

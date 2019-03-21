@@ -120,4 +120,4 @@ class Comment(models.Model):
     def __str__(self):
         return '{} - {}'.format(self.game.name, str(self.user.username))
 
-#import RNG.signals
+
