@@ -8,14 +8,14 @@
         <div class="mostViewed centre">
         <div class= "MVimageBlock ib">
           <a href="{% url 'game' game.category.slug game.slug %}">
-            <img src="{{game.image.url}}" alt="Game image">
+            <img src="/media/game_images/{{ game.file_name }}/">
            </a><!-- this is for the django tag!-->
         </div>
         <div class="MVtext">
           <a href="{% url 'game' game.category.slug game.slug %}"><div class="MVTitle"><u>{{game.name}}</u></div></a>
           <div class="MVname"></div><!-- this is for the django tag!-->
           <div class="MVdescription">
-            <pre>{{game.description}}</pre><!-- this is for the django tag!-->
+            <div>{{game.description}}</div><!-- this is for the django tag!-->
           </div>
         </div>
         
