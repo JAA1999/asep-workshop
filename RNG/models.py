@@ -57,7 +57,7 @@ class Category(models.Model):
 class Game(models.Model):
     name = models.CharField(max_length=64)
     age_rating = models.CharField(max_length=16)
-    blurb = models.CharField(max_length=250)
+    description = models.CharField(max_length=9999)
     release_date = models.DateField(null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
 
@@ -105,18 +105,18 @@ class Rating(models.Model):
 class Comment(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    #rating = models.ForeignKey(Rating, on_delete=models.SET_NULL, null=True, blank=True)
+    rating = models.ForeignKey(Rating, on_delete=models.SET_NULL, null=True, blank=True)
     content = models.CharField(max_length=2000)
     timestamp = models.DateTimeField(default=timezone.now, blank=True)
-    #supercomment = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+    supercomment = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
 
-   # def clean(self):
+    def clean(self):
         # auto get user's rating for game where comment is made
-    #    if not self.rating:
-     #       try:
-      #          self.rating = Rating.objects.get(user=self.user, game=self.game)
-       #     except Rating.DoesNotExist:
-        #        ...
+        if not self.rating:
+            try:
+                self.rating = Rating.objects.get(user=self.user, game=self.game)
+            except Rating.DoesNotExist:
+                ...
 
     def __str__(self):
         return '{} - {}'.format(self.game.name, str(self.user.username))
