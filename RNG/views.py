@@ -4,7 +4,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from RNG.webhose_search import run_query
 from django.db.models import Q
 
 from RNG.models import Category, Game, Comment
@@ -144,18 +143,6 @@ def gameV(request, category_name_slug, game_name_slug):
 			
 	return render(request, 'RNG/game.html', context=context_dict)
 
-def search(request):
-    result_list=[]
-    query=None
-    if request.method == 'POST':
-        query=request.POST['query'].strip()
-        if query:
-            #runs webhose search function
-            result_list = run_query(query)
-    return render(request,'RNG/search.html',{'result_list':result_list,'search_query':query})
-
-
-
 def add_gameV(request):
 	game_form = GameForm()
 	if request.method == 'POST':
@@ -182,4 +169,15 @@ def add_gameV(request):
 			
 	context_dict={'game_form':game_form}
 	return render(request, "RNG/add_game.html", context_dict)
+
+def search(request):
+	if request.method == 'GET':
+		game_name = request.GET.get('search')
+		try:
+			status = Add_prod.objects.filter(gamename__icontains=game_name)
+		except:
+			pass
+		return render(request, "search.html", {})
+	else:
+		return render(request, "search.html", {})
 

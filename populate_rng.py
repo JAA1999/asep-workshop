@@ -224,8 +224,7 @@ def populate():
         username = generate_string(10)
         first_name = generate_string(10)
         last_name = generate_string(10)
-        user = UserProfile.objects.get_or_create(username=username, first_name=first_name,
-                                                 last_name=last_name)[0]
+        user = UserProfile.objects.get_or_create(username=username, first_name=first_name, last_name=last_name)[0]
         user.save()
         return user
 
