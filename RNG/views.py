@@ -126,8 +126,7 @@ def category(request, category_name_slug):
 def game(request, category_name_slug, game_name_slug):
 
 	game = Game.objects.get(slug=game_name_slug)
-	comments = Comment.objects.filter(game=game).order_by('-id')
-	comments = Comment.objects.filter(game=game).order_by('-id')
+	comments = Comment.objects.filter(game=game).order_by('-timestamp')
 				
 	if request.method == 'POST':
 		comment_form = CommentForm(request.POST or None)
