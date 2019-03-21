@@ -72,13 +72,14 @@
         </div>
 
         <div class="line"></div>
-        
+          <!------------------------------------------------------->    
         <div class="ib searchBlock padleft">
-            <form class="ib">
+            <form name="myform" method="GET" action="{% url 'search' %">
             <input type="text" name="search" placeholder="Search">
             </form>
           <button class="ib searchButton">GO</button>
         </div>
+          <!-------------------------------------------------------->
         </div>
       </div>
     </div>
