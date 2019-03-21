@@ -1,6 +1,7 @@
 from django import forms
 from RNG.models import UserProfile, Category, Game, Comment
 from django.contrib.auth.models import User
+from django import forms
 
 class CategoryForm(forms.ModelForm):
 	name = forms.CharField(max_length=128,
@@ -47,6 +48,7 @@ class UserProfileForm(forms.ModelForm):
 		fields = ("website", "picture")
 
 class CommentForm(forms.ModelForm):
+	
 	class Meta:
 		model = Comment
 		fields = ("content", )
