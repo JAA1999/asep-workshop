@@ -21,7 +21,19 @@ def visitor_cookie_handler(request):
 	request.session["visits"]=visits
 
 def index(request):
-    context_dict={}
+    newGameList= Game.objects.order_by("-release_date")#newgames
+    popGameList= Game.objects.order_by("rating")#popular games
+    newGames= []
+    popularGames= []
+    for r in newGameList:
+        print(r.name, r.release_date)
+        
+    for i in range(1,6):
+        newGames.append(newGameList[i])
+        popularGames.append(popGameList[i])
+    
+    context_dict={"newGames":newGames,
+                  "popularGames": popularGames}
     return render(request, 'RNG/index.html', context=context_dict)
 
 def about(request):
