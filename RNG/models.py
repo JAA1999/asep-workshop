@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Avg
 from django.utils import timezone
 import uuid
 
@@ -7,16 +8,12 @@ from django.template.defaultfilters import slugify
 # New AbstractBaseUser extension
 from django.contrib.auth.models import AbstractUser
 
-from django.db.models.signals import post_save  # try to implement post_save to update ratings
-from django.dispatch import receiver
-from django.db.models.signals import pre_delete, pre_save
-
 
 # Database Objects
 # Remember to migrate!
 # Use python manage.py migrate --run-syncdb
 
-# ID refs should autogenerate
+# ID, slug refs should autogenerate
 
 class UserProfile(AbstractUser):
     # AbstractUser relevant fields:
@@ -52,25 +49,33 @@ class Category(models.Model):
         return self.name
 
 class Game(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=64)
+    ### IMPORTANT ###
+    # averages should not be fields but instead use aggregation
+    # use django's annotate()
+    # https://docs.djangoproject.com/en/2.0/topics/db/aggregation/
+    # https://stackoverflow.com/questions/48792847/django-model-field-auto-updates-depending-on-related-instances
 
-    avg_user_rating = models.FloatField(default=0)
-    num_user_ratings = models.IntegerField(default=0)
-    avg_critic_rating = models.FloatField(default=0)
-    num_critic_ratings = models.IntegerField(default=0)
+    name = models.CharField(max_length=64)
 
     age_rating = models.CharField(max_length=16)
     description = models.TextField(null=True, blank=True)
-    releasedate = models.DateField(null=True, blank=True)
+    release_date = models.DateField(null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     #images blank atm for testing
     #picture = models.ImageField(upload_to='game_images',blank=True)
 
-    slug = models.SlugField(max_length=40, default=id)
+    slug = models.SlugField(max_length=40)
 
-    # def __init__(self):
+    @property
+    def avg_user_rating(self):
+        return Rating.objects.filter(game='self', critic_rating=False).aggregate(Avg('score'))
 
+    @property
+    def avg_critic_rating(self):
+        return Rating.objects.filter(game='self', critic_rating=True).aggregate(Avg('score'))
+
+    def avg_rating(self):
+        return Rating.objects.filter(game='self').aggregate(Avg('score'))
 
     def save(self, *args, **kwargs):
         self.slug=slugify(self.name)
@@ -81,46 +86,35 @@ class Game(models.Model):
 
 
 class Rating(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     score = models.FloatField()
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    critic_rating = models.BooleanField()   # optional
+    critic_rating = models.BooleanField(default=False)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(default=timezone.now, blank=True)
 
-    def save(self, *args, **kwargs):
-        def add_rating(self, cur_rating, num_ratings):
-            new_num_ratings = num_ratings + 1
-            new_rating = ((cur_rating * num_ratings) + self.score) / new_num_ratings
-            return new_rating, new_num_ratings
-
-        if self.critic_rating:
-            cur_rating = self.game.avg_critic_rating
-            num_ratings = self.game.num_critic_ratings
-            cur_rating, num_ratings = add_rating(self, cur_rating, num_ratings)
-            self.game.avg_critic_rating = cur_rating
-            self.game.num_critic_ratings = num_ratings
-        else:
-            cur_rating = self.game.avg_user_rating
-            num_ratings = self.game.num_user_ratings
-            cur_rating, num_ratings = add_rating(self, cur_rating, num_ratings)
-            self.game.avg_user_rating = cur_rating
-            self.game.num_user_ratings = num_ratings
-
-        super(Rating, self).save(*args, **kwargs)   # might go at end to exec code after saved
+    def clean(self):
+        #print("Rating clean: User[" + str(self.user) + "] + critic_rating[" + str(self.critic_rating) + "]")
+        if self.user:
+            self.critic_rating = self.user.critic   # auto set critic rating by user
 
 
 class Comment(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    rating = models.ForeignKey(Rating, on_delete=models.CASCADE)
+    rating = models.ForeignKey(Rating, on_delete=models.CASCADE, null=True, blank=True)
 
     content = models.TextField()
     timestamp = models.DateTimeField(default=timezone.now, blank=True)
 
-    supercomment = models.ForeignKey('self', on_delete=models.CASCADE)
+    supercomment = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+
+    def clean(self):
+        # auto get user's rating for game where comment is made
+        if not self.rating:
+            try:
+                self.rating = Rating.objects.get(user=self.user, game=self.game)
+            except Rating.DoesNotExist:
+                ...
 
     def __str__(self):
         return '{} - {}'.format(self.game.name, str(self.user.username))
