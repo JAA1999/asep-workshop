@@ -60,6 +60,8 @@ class Game(models.Model):
     num_user_ratings = models.IntegerField(default=0)
     avg_critic_rating = models.FloatField(default=0)
     num_critic_ratings = models.IntegerField(default=0)
+	
+    is_approved = models.BooleanField(default=False)
 
     age_rating = models.CharField(max_length=16)
     description = models.TextField(null=True, blank=True)

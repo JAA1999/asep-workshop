@@ -1,26 +1,18 @@
 {% extends 'RNG/base.html' %}
 {% load staticfiles %}
 
-{% block title_block %}
-    Add Game: {{ category.name }}
-{% endblock %}
 
-    {% block body_block %}
+{% block body_block %}
+	{% if user.is_authenticated %}
         <h1>Add a Game</h1>
-            {% if category %}
-                <form id="page_form" method="post" action="/RNG/category/{{ category.slug }}/add_game/">
-                    {% csrf_token %}
-                    {% for hidden in form.hidden_fields %}
-                        {{ hidden }}
-                    {% endfor %}
-                    {% for field in form.visible_fields %}
-                        {{ field.errors }}
-                        {{ field.help_text }}
-                        {{ field }}
-                    {% endfor %}
-                    <input type="submit" name="submit" value="Add Game"/>
-                </form>
-            {% else %}
-                A category by this name does not exist
-            {% endif %}
-    {% endblock %}
+            <form method='POST' action=".">
+					{% csrf_token %}
+					{{ game_form.as_p }}
+				<input type="submit" value="submit" button class="signin">
+			</form>
+	{% else %}
+		<h1> You must be logged in to add a game. 
+		<a href="{% url 'auth_login' %}">sign in here</a> or 
+		<a href="{% url 'registration_register' %}">sign up here!</a></h1>
+	{% endif %}
+{% endblock %}
