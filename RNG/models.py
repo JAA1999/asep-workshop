@@ -10,6 +10,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save  # try to implement post_save to update ratings
 from django.dispatch import receiver
 from django.db.models.signals import pre_delete, pre_save
+#import RNG.signals
 
 
 # Database Objects
@@ -115,15 +116,19 @@ class Comment(models.Model):
 
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    rating = models.ForeignKey(Rating, on_delete=models.CASCADE)
+	
+
 
     content = models.TextField()
     timestamp = models.DateTimeField(default=timezone.now, blank=True)
 
-    supercomment = models.ForeignKey('self', on_delete=models.CASCADE)
+	#commented out until rating system works
+    #rating = models.ForeignKey(Rating, on_delete=models.CASCADE)
+
+	#commented out sas not required right now and is causing issues
+    #supercomment = models.ForeignKey('self', on_delete=models.CASCADE)
 
     def __str__(self):
         return '{} - {}'.format(self.game.name, str(self.user.username))
 
 
-import RNG.signals
