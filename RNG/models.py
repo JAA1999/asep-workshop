@@ -57,7 +57,7 @@ class Category(models.Model):
 class Game(models.Model):
     name = models.CharField(max_length=64)
     age_rating = models.CharField(max_length=16)
-    description = models.TextField(null=True, blank=True)
+    description = models.CharField(max_length=9999)
     release_date = models.DateField(null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
     picture = models.ImageField()
