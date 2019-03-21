@@ -8,7 +8,6 @@ from django.template.defaultfilters import slugify
 # New AbstractBaseUser extension
 from django.contrib.auth.models import AbstractUser
 
-
 # Database Objects
 # Remember to migrate!
 # Use python manage.py migrate --run-syncdb
@@ -103,7 +102,7 @@ class Comment(models.Model):
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     rating = models.ForeignKey(Rating, on_delete=models.CASCADE, null=True, blank=True)
 
-    content = models.TextField()
+    content = models.CharField(max_length=2000)
     timestamp = models.DateTimeField(default=timezone.now, blank=True)
 
     supercomment = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
@@ -119,5 +118,4 @@ class Comment(models.Model):
     def __str__(self):
         return '{} - {}'.format(self.game.name, str(self.user.username))
 
-
-import RNG.signals
+#import RNG.signals

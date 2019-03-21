@@ -262,9 +262,11 @@ def populate():
 
     for i in range(NUM_REGULAR_USERS):
         generate_user(critic=False)
+        print("Generating normal user")
 
     for i in range(NUM_CRITIC_USERS):
         generate_user(critic=True)
+        print("Generating critic")
 
     users = UserProfile.objects.all()
 

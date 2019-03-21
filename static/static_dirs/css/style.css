@@ -10,11 +10,29 @@ body{
       background-color: #ffffff;
 }
 
+div{
+      font-family: arial;
+}
+
 img{
       width: auto; /* for IE8 support*/
       max-width: 100%;
       height: auto;
 }
+
+pre{
+      font-family: arial;
+      padding: 5px;
+}
+
+p{
+      font-family: arial;
+}
+
+b{
+     font-family:arial;
+}
+
 
 .head{
       max-width: 100vw;
@@ -105,6 +123,66 @@ img{
 
 .input:hover {
       border: 1px solid #00EE00;     
+}
+
+input[type=text]{
+      padding-left: 10px;
+      font-size: 20px;
+      width: 180px;
+      border: 1px solid #202020;
+      border-radius: 10px;
+      box-shadow: inset 0 0 2px #323232;
+      outline: none;
+}
+
+input[type=password]{
+      padding-left: 10px;
+      font-size: 20px;
+      width: 180px;
+      border: 1px solid #202020;
+      border-radius: 10px;
+      box-shadow: inset 0 0 2px #323232;
+      outline: none;
+}
+
+input[type=email]{
+      padding-left: 10px;
+      font-size: 20px;
+      width: 180px;
+      border: 1px solid #202020;
+      border-radius: 10px;
+      box-shadow: inset 0 0 2px #323232;
+      outline: none;
+}
+
+input[type=url]{
+      padding-left: 10px;
+      font-size: 20px;
+      width: 180px;
+      border: 1px solid #202020;
+      border-radius: 10px;
+      box-shadow: inset 0 0 2px #323232;
+      outline: none;
+}
+
+input:hover {
+      border: 1px solid #00EE00;     
+}
+
+input[type=submit]{
+        margin: 1px;
+        width: 160px;
+        height: 26px;
+        border: 2px solid #202020;
+        border-radius: 13px;
+        background-color: #00EE00;
+        color: #f7f7f7;
+        z-index: 2;  
+}
+
+input[type=submit]:hover{
+        background-color: rgb(0, 189, 0);
+        box-shadow: inset 0 0 6px #000000;    
 }
 
 .searchBlock{

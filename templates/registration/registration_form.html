@@ -30,7 +30,7 @@
 			<form method="post" action=".">	
 				{% csrf_token %}
 				{{ form.as_p }}
-				<input type="submit" name="submit" value="Sign Up" />
+				<input type="submit" name="submit" value="Sign Up" button class="signin"/>
 			</form>
 			<br />
 			Already have an account? <a href="{% url 'auth_login' %}">Sign in here!</a>

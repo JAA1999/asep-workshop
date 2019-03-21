@@ -6,32 +6,34 @@
 
 <div class="body centre">
 	{% if game %}
-    <div class = "mostViewed centre">
-        <div class = "MVimageBlock ib">
-            <img src={% static "images/largeGame.jpg"%}>
-        </div>
-        <div class = "MVtext">
-            <div class = "MVTitle">{{game.name}}</div>          
-            <div class = "MVdescription pt">
+    <div class = "gameContainer centre">
+        <div class = "GCImg ib">
+			<img src={% static "images/game.jpg"%}>
+		</div>
+        <div class = "GCGame center">
+            <div class = "GCTitle centre">{{game.name}}</div>          
+            <div class = "MVdescription centre">
                 <pre>{{game.description}}</pre>
             </div>
-            <div class="rating_container centre">
-                <div class="ib">Critic rating:</div>
-                <div class = "rating ib"><p class="fc centre">Placeholder</p></div>
-            </div>
-			<div class="rating_container centre">
-                <div class="ib">User rating:</div>
-                <div class = "rating ib"><p class="fc centre">Placeholder</p></div>
-            </div>
-        </div>
+			<div class="rating_container right">
+				<div class="ib">Critic rating:</div>
+				<div class = "rating ib"><p class="fc right">Placeholder</p></div>
+			</div>
+			<div class="rating_container right">
+				<div class="ib">User rating:</div>
+				<div class = "rating ib"><p class="fc right">Placeholder</p></div>
+			</div>
+		</div>
+        
+    </div>
 		
 		<div class="comments">
 			<div class= "title2 ib">{{ comments.count }} Comment{{ comments|pluralize }}</div>
 			{% if user.is_authenticated %}
-				<form method='post'>
+				<form method='post' action=".">
 					{% csrf_token %}
 					{{ comment_form.as_p }}
-				<input type="submit" value="Comment">
+				<input type="submit" value="Comment" button class="signin">
 				</form>
 			{% else %}
 				<br />
@@ -50,6 +52,6 @@
 	{% else %}
 		Something went wrong.
 	{% endif %}
-    </div>
+    
 </div>
 {% endblock %}

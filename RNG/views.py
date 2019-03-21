@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from RNG.webhose_search import run_query
+from django.db.models import Q
 
 from RNG.models import Category, Game, Comment
 from RNG.forms import CategoryForm, UserForm, GameForm, UserProfileForm, CommentForm
@@ -126,8 +127,7 @@ def category(request, category_name_slug):
 def game(request, category_name_slug, game_name_slug):
 
 	game = Game.objects.get(slug=game_name_slug)
-	comments = Comment.objects.filter(game=game).order_by('-id')
-	comments = Comment.objects.filter(game=game).order_by('-id')
+	comments = Comment.objects.filter(game=game).order_by('-timestamp')
 				
 	if request.method == 'POST':
 		comment_form = CommentForm(request.POST or None)
