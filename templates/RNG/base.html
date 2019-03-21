@@ -25,9 +25,8 @@
 
 			{% if user.is_authenticated %}
 				
-				
 				<div class="signedinBlock ib">
-				<div class="Welcome"><u>Welcome {{ user.username }}</u></div>
+				<div class="Welcome">Welcome {{ user.username }}</div>
 				<a href="{% url 'auth_password_change' %}"><div><button class="signin ">Change Password</button></div></a>
 				<a href="{% url 'signout' %}"><div><button class="signin ">Sign Out</button></div></a>
 				</div>
