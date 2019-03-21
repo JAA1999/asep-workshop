@@ -8,7 +8,7 @@
 		<a href="{% url 'category' cat.slug %}">TestLink</a><br/>
 		<div class = "mostViewed centre">    
 			<div class = "MVimageBlock ib">
-				<img src={% static "images/largeGame.jpg"%}>
+				<a href="{% url 'category' cat.slug %}"><img src={% static "images/largeGame.jpg"%} alt="CategoryImage"></a>
 			</div>
 			<div class = "MVtext">
 				<div class = "MVTitle">{{cat.name}}</div>        

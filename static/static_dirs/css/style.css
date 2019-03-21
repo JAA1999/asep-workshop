@@ -33,6 +33,10 @@ b{
      font-family:arial;
 }
 
+a {
+   pointer-events: auto !important;  
+   cursor: pointer !important;
+}
 
 .head{
       max-width: 100vw;
@@ -41,7 +45,7 @@ b{
       position: sticky;
       right:0;
       left:0;
-      z-index: 5;
+      z-index: 1000;
       margin: 0 auto;
 }
 .head2{
@@ -54,6 +58,7 @@ b{
       left:0;
       margin: 0 auto;
       box-shadow: 0 4px 6px 0 #797979;
+      z-index: 999;
 }
 
 
@@ -386,7 +391,7 @@ input[type=submit]:hover{
 
 /*This is for the container at the bottom of the page*/
 .mostViewed{
-      z-index: -5;
+      z-index: 5;
       max-width: 90%;
       height: 295px;
       margin-top: 40px;
@@ -403,6 +408,9 @@ input[type=submit]:hover{
       padding-top: 0;
 }
 
+.MVtop{
+      z-index:1000;       
+}
 .MVtext{
       width: 590px;
       display: inline-block;
