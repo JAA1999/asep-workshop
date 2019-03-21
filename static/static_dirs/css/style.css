@@ -10,10 +10,32 @@ body{
       background-color: #ffffff;
 }
 
+div{
+      font-family: arial;
+}
+
 img{
       width: auto; /* for IE8 support*/
       max-width: 100%;
       height: auto;
+}
+
+pre{
+      font-family: arial;
+      padding: 5px;
+}
+
+p{
+      font-family: arial;
+}
+
+b{
+     font-family:arial;
+}
+
+a {
+   pointer-events: auto !important;  
+   cursor: pointer !important;
 }
 
 .head{
@@ -23,7 +45,7 @@ img{
       position: sticky;
       right:0;
       left:0;
-      z-index: 5;
+      z-index: 1000;
       margin: 0 auto;
 }
 .head2{
@@ -36,6 +58,7 @@ img{
       left:0;
       margin: 0 auto;
       box-shadow: 0 4px 6px 0 #797979;
+      z-index: 999;
 }
 
 
@@ -107,6 +130,66 @@ img{
       border: 1px solid #00EE00;     
 }
 
+input[type=text]{
+      padding-left: 10px;
+      font-size: 20px;
+      width: 180px;
+      border: 1px solid #202020;
+      border-radius: 10px;
+      box-shadow: inset 0 0 2px #323232;
+      outline: none;
+}
+
+input[type=password]{
+      padding-left: 10px;
+      font-size: 20px;
+      width: 180px;
+      border: 1px solid #202020;
+      border-radius: 10px;
+      box-shadow: inset 0 0 2px #323232;
+      outline: none;
+}
+
+input[type=email]{
+      padding-left: 10px;
+      font-size: 20px;
+      width: 180px;
+      border: 1px solid #202020;
+      border-radius: 10px;
+      box-shadow: inset 0 0 2px #323232;
+      outline: none;
+}
+
+input[type=url]{
+      padding-left: 10px;
+      font-size: 20px;
+      width: 180px;
+      border: 1px solid #202020;
+      border-radius: 10px;
+      box-shadow: inset 0 0 2px #323232;
+      outline: none;
+}
+
+input:hover {
+      border: 1px solid #00EE00;     
+}
+
+input[type=submit]{
+        margin: 1px;
+        width: 160px;
+        height: 26px;
+        border: 2px solid #202020;
+        border-radius: 13px;
+        background-color: #00EE00;
+        color: #f7f7f7;
+        z-index: 2;  
+}
+
+input[type=submit]:hover{
+        background-color: rgb(0, 189, 0);
+        box-shadow: inset 0 0 6px #000000;    
+}
+
 .searchBlock{
       position:absolute;
       right: 60px;
@@ -123,8 +206,8 @@ img{
 .searchButton{
       position: relative;
       top: 0;
-      height: 28px;
-      width: 36px;
+      height: 28px !important;
+      width: 36px !important;
       background-color: #00EE00;
       border: 2px solid #000000;
       border-radius: 4px;
@@ -176,52 +259,6 @@ img{
       position: absolute;
       right: 60px;
       top: 35px;
-}
-
-
-/*The container holding the games*/
-.gameContainer{
-      max-width: 90%;
-      height: 290px;
-      background-color: #00EE00;
-      margin-top: 40px;
-      box-shadow: 4px 4px 8px 0px #696969;
-}
-
-.GCTitle{
-      padding: 10px;
-      font-size: 200%;
-      color: #323232;
-      font-family: arial;
-      text-shadow:1px 1px 3px #6d6d6d;
-      display: block;
-}
-
-/*holds the games*/
-.GCgroup{
-      display: block;
-}
-
-/*Holds individual game*/
-.GCGame{
-      display: inline-block;
-      text-align: center;
-      padding-left: 25px;
-}
-.GCImg{
-      max-width: 140px;
-      max-height: 191px;
-}
-
-.GCImg:hover{
-      box-shadow: 2px 2px 6px 0px #696969;
-}
-
-.GCName{
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 100%;
-      color: #323232;
-      margin: 4px;
 }
 
 .Welcome{
@@ -306,9 +343,58 @@ img{
   box-shadow: inset 0 0 6px #000000; 
 }
 
+
+
+/*The container holding the games*/
+.gameContainer{
+      max-width: 90%;
+      height: 290px;
+      background-color: #00EE00;
+      margin-top: 40px;
+      box-shadow: 4px 4px 8px 0px #696969;
+}
+
+.GCTitle{
+      padding: 10px;
+      font-size: 200%;
+      color: #323232;
+      font-family: arial;
+      text-shadow:1px 1px 3px #6d6d6d;
+      display: block;
+}
+
+/*holds the games*/
+.GCgroup{
+      display: block;
+}
+
+/*Holds individual game*/
+.GCGame{
+      display: inline-block;
+      text-align: center;
+      padding-left: 25px;
+}
+.GCImg{
+      max-width: 140px;
+      max-height: 191px;
+}
+
+.GCImg:hover{
+      box-shadow: 2px 2px 6px 0px #696969;
+}
+
+.GCName{
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 100%;
+      color: #323232;
+      margin: 4px;
+}
+
+
+
 /*This is for the container at the bottom of the page*/
 .mostViewed{
-      z-index: -5;
+      z-index: 5;
       max-width: 90%;
       height: 295px;
       margin-top: 40px;
@@ -325,6 +411,9 @@ img{
       padding-top: 0;
 }
 
+.MVtop{
+      z-index:1000;       
+}
 .MVtext{
       width: 590px;
       display: inline-block;

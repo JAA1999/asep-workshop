@@ -5,11 +5,9 @@ django.setup()
 from RNG.models import Category, Game, Rating, UserProfile, Comment
 
 import random
-from string import ascii_lowercase  # for username
+from string import ascii_lowercase  # for generating strings
+from django.utils.dateparse import parse_date   # string to datetime
 
-# TODO:
-# randomly generate values for game fields
-# generate ratings for games
 
 def populate():
     #creates a list of dictionaries containing games to add into each category
@@ -217,6 +215,7 @@ def populate():
             "Simulation":simulation,
     }
 
+    # use to generate random strings for fields
     def generate_string(length):
         return "".join(random.choice(ascii_lowercase) for i in range(length))
 
@@ -232,48 +231,88 @@ def populate():
     def generate_rating(game, user):
         # generate random val between 1-10
         score = random.randint(1, 10)
-        rating = Rating.objects.get_or_create(score=score, game=game, username=user,
-                                              critic_rating=user.critic)[0]
+        rating = Rating.objects.get_or_create(score=score, game=game, user=user)[0]
+        rating.save()
         return rating
 
-    def generate_comment():
+    def generate_comment(game, user, comment=None):
         content = generate_string(100)
-        comment = Comment.objects.get_or_create(content=content)[0]
+        if comment is None:
+            comment = Comment.objects.get_or_create(user=user, game=game, content=content)[0]
+        else:
+            comment = Comment.objects.get_or_create(user=user, game=game, content=content,
+                                                    supercomment=comment)[0]
+        comment.save()
         return comment
 
-    def add_game(cat, name, age_rating):
+    def generate_game(category, name, age_rating, release_date):
         # [0] specifies object in the [object, boolean created]
-        game = Game.objects.get_or_create(category=cat, name=name, age_rating=age_rating)[0]
+        game = Game.objects.get_or_create(category=category, name=name,
+                                          age_rating=age_rating, release_date=release_date)[0]
         game.save()
         return game
 
-    def add_cat(name):
+    def generate_category(name):
         c=Category.objects.get_or_create(name=name)[0]
         c.save()
         return c
 
-    # for cat, cat_data in cats.items():
-    #     c=add_cat(cat, cats[cat]["views"]["likes"])
-    #     for p in cat_data["games"]:
-    #         add_game(c,p["name"],p["url"],p["views"])
-
     # generate users
     NUM_REGULAR_USERS = 100
     NUM_CRITIC_USERS = 20
+    NUM_USERS = NUM_REGULAR_USERS + NUM_CRITIC_USERS # don't make lower than 20
 
-    
+    for i in range(NUM_REGULAR_USERS):
+        generate_user(critic=False)
+        print("Generating normal user")
 
-    
+    for i in range(NUM_CRITIC_USERS):
+        generate_user(critic=True)
+        print("Generating critic")
+
+    users = UserProfile.objects.all()
+
+    def get_random_user():
+        return random.choice(users)
+
+
+    ### MAIN POPULATE LOOP ###
     for name, games in cats.items():
-        cat = add_cat(name) # generate categories
-        for game in games:  # generate games for those categories
-            add_game(cat, name=game["name"], age_rating=game["age_rating"])
+        # generate categories
+        print("Creating " + name + " category")
+        category = generate_category(name)
 
-    
+
+        # generate games for those categories
+        for game_dict in games:
+            print("Creating " + game_dict["name"] + " game")
+            game = generate_game(category=category, name=game_dict["name"],
+                                 age_rating=game_dict["age_rating"],
+                                 release_date=parse_date(game_dict["releasedate"]))
+
+            # generate ratings for game
+            for i in range(random.randint(0, 20)):
+                print("Creating rating")
+                rating = generate_rating(user=get_random_user(), game=game)
+                rating.save()
+
+            # generate comments for game
+            num_comments = random.randint(0, 10)
+            for i in range(num_comments):
+                prev_comment = None
+
+                # randomly allocate comments as subcomments
+                num_sub_comments = random.randint(1, num_comments - i)
+                for x in range(random.randint(1, num_sub_comments)):
+                    print("Creating comment")
+                    comment = generate_comment(game=game, user=get_random_user(),
+                                               comment=prev_comment)
+                    prev_comment=comment
+                i = i + num_sub_comments
+
     for c in Category.objects.all():
         for p in Game.objects.filter(category=c):
             print("- {0} - {1}".format(str(c),str(p)))
-
 
 
 if __name__ == '__main__':

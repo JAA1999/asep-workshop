@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from RNG.webhose_search import run_query
+from django.db.models import Q
 
 from RNG.models import Category, Game, Comment
 from RNG.forms import CategoryForm, UserForm, GameForm, UserProfileForm, CommentForm

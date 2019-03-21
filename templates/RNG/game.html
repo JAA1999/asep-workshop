@@ -6,12 +6,12 @@
 
 <div class="body centre">
 	{% if game %}
-    <div class = "gameContainer centre">
-        <div class = "GCImg ib">
+    <div class = "mostViewed centre">
+        <div class = "MVimageBlock ib">
 			<img src={% static "images/game.jpg"%}>
 		</div>
-        <div class = "GCGame center">
-            <div class = "GCTitle centre">{{game.name}}</div>          
+        <div class = "MVtext center">
+            <div class = "MVTitle centre">{{game.name}}</div>          
             <div class = "MVdescription centre">
                 <pre>{{game.description}}</pre>
             </div>

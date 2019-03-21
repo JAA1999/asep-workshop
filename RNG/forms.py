@@ -34,7 +34,7 @@ class UserProfileForm(forms.ModelForm):
 		fields = ("website", "picture")
 
 class CommentForm(forms.ModelForm):
-	
+	content=forms.CharField(label="",widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder':'Add a public comment here','rows':'4','cols':'50'}))
 	class Meta:
 		model = Comment
 		fields = ("content", )
