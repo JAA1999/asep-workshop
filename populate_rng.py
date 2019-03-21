@@ -255,7 +255,7 @@ def populate():
         return game
 
     def generate_category(name):
-        c=Category.objects.get_or_create(name=name)[0]
+        c=Category.objects.get_or_create(name=name, imageUrl="/static/images/"+name.lower()+".jpg")[0]
         c.save()
         return c
 

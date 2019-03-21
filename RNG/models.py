@@ -40,7 +40,7 @@ class Category(models.Model):
     name = models.CharField(max_length=64)
     # supercategory to allow hierarchical structure of categories
     supercategory = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
-
+    imageUrl= models.CharField(max_length=128, blank=True)
     slug = models.SlugField(max_length=40)
 
     def save(self, *args, **kwargs):
