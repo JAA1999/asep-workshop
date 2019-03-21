@@ -119,7 +119,7 @@ class Comment(models.Model):
 	
 
 
-    content = models.TextField()
+    content = models.CharField(max_length=2000)
     timestamp = models.DateTimeField(default=timezone.now, blank=True)
 
 	#commented out until rating system works
