@@ -6,6 +6,12 @@ from RNG.models import Rating, Game, Comment
 
 # signals/receivers
 
+# @receiver(pre_save, sender=Rating)
+# def check_no_conflicting_rating(sender, instance, **kwargs):
+#     # if exists another rating by user
+#     try:
+#         cur_rating = Rating.objects.get()
+
 # add checks for whether a user has already made rating to edit that one
 # checks on creation of comments/ratings if user is critic
 

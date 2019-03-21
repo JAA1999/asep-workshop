@@ -6,6 +6,7 @@ from RNG.models import Category, Game, Rating, UserProfile, Comment
 
 import random
 from string import ascii_lowercase  # for generating strings
+from django.utils.dateparse import parse_date   # string to datetime
 
 
 def populate():
@@ -244,9 +245,10 @@ def populate():
         comment.save()
         return comment
 
-    def generate_game(category, name, age_rating):
+    def generate_game(category, name, age_rating, release_date):
         # [0] specifies object in the [object, boolean created]
-        game = Game.objects.get_or_create(category=category, name=name, age_rating=age_rating)[0]
+        game = Game.objects.get_or_create(category=category, name=name,
+                                          age_rating=age_rating, release_date=release_date)[0]
         game.save()
         return game
 
@@ -284,7 +286,9 @@ def populate():
         # generate games for those categories
         for game_dict in games:
             print("Creating " + game_dict["name"] + " game")
-            game = generate_game(category=category, name=game_dict["name"], age_rating=game_dict["age_rating"])
+            game = generate_game(category=category, name=game_dict["name"],
+                                 age_rating=game_dict["age_rating"],
+                                 release_date=parse_date(game_dict["releasedate"]))
 
             # generate ratings for game
             for i in range(random.randint(0, 20)):
