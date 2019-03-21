@@ -20,7 +20,8 @@ def populate():
         "num_critic_ratings": 5,
         "age_rating": 18,
         "description": "An action adventure game focussed on the story of Ezio Auditore da Firenze, an assassin, in Renaissance Italy.",
-        "releasedate": "2009-11-17"},
+        "release_date": "2009-11-17",
+        "picture": "ac2.jpg"},
         {"name": "Grand Theft Auto V",
         "user_score": 5,
         "num_user_ratings": 5,
@@ -28,7 +29,7 @@ def populate():
         "num_critic_ratings": 5,
         "age_rating": 18,
         "description": "An open-world action game focussing on the lives of three criminals residing in Los Santos.",
-        "releasedate": "2013-09-17"},
+        "release_date": "2013-09-17"},
         {"id": "DISH",
         "name": "Dishonored",
         "user_score": 5,
@@ -37,7 +38,7 @@ def populate():
         "num_critic_ratings": 5,
         "age_rating": 18,
         "description": "An action adventure game set in an alternate dystopian Victorian England reality in which a bodyguard turned assassin seeks revenge on those who conspired against him.",
-        "releasedate": "2012-10-09"}
+        "release_date": "2012-10-09"}
     ]
     rpg=[
         {"name": "Skyrim",
@@ -47,7 +48,7 @@ def populate():
         "num_critic_ratings": 5,
         "age_rating": 15,
         "description": "An open-world role playing game set in the fictional world of Skyrim where dragons have mysteriously reappeared.",
-        "releasedate": "2011-11-11"},
+        "release_date": "2011-11-11"},
         {"name": "Mass Effect 2",
         "user_score": 5,
         "num_user_ratings": 5,
@@ -55,7 +56,7 @@ def populate():
         "num_critic_ratings": 5,
         "age_rating": 15,
         "description": "An open-world role playing game set far in the future where faster than light travel is common technology. Commander Shepard must face many enemies and moral dilemmas in his fight against the Collectors.",
-        "releasedate": "2010-01-26"},
+        "release_date": "2010-01-26"},
         {"id": "DAI",
         "name": "Dragon Age: Inquisition",
         "user_score": 5,
@@ -64,7 +65,7 @@ def populate():
         "num_critic_ratings": 5,
         "age_rating": 18,
         "description": "An open-world role playing game set in a demon-filled medieval world. The only way to save the world is to recreate the long forgotten inquisition.",
-        "releasedate": "2014-11-18"}
+        "release_date": "2014-11-18"}
     ]
     strategy=[
         {"name": "DOTA 2",
@@ -74,7 +75,7 @@ def populate():
         "num_critic_ratings": 5,
         "age_rating": 16,
         "description": "A strategy game in which you have a selection of heroes, each taking hours to master, and fight in a team of six against the other team.",
-        "releasedate": "2013-07-09"},
+        "release_date": "2013-07-09"},
         {"name": "Civilization V",
         "user_score": 5,
         "num_user_ratings": 5,
@@ -82,7 +83,7 @@ def populate():
         "num_critic_ratings": 5,
         "age_rating": 12,
         "description": "A strategy game in which you create a civilization and develop it over millenia amongst other civilizations all aiming for victory.",
-        "releasedate": "2010-09-21"},
+        "release_date": "2010-09-21"},
         {"name": "Spore",
         "user_score": 5,
         "num_user_ratings": 5,
@@ -90,7 +91,7 @@ def populate():
         "num_critic_ratings": 5,
         "age_rating": 12,
         "description": "A strategy game in which you create a single-celled organism that evolves over millenia into the world's dominant species.",
-        "releasedate": "2008-09-04"}
+        "release_date": "2008-09-04"}
     ]
     puzzle=[
         {"name": "Portal 2",
@@ -100,7 +101,7 @@ def populate():
         "num_critic_ratings": 5,
         "age_rating": 12,
         "description": "A singleplayer/multiplayer puzzle game revolving around the use of a portal gun. Set in an abandoned laboratory populated by yourself and AI's.",
-        "releasedate": "2011-04-18"},
+        "release_date": "2011-04-18"},
         {"name": "The Talos Principle",
         "user_score": 5,
         "num_user_ratings": 5,
@@ -108,7 +109,7 @@ def populate():
         "num_critic_ratings": 5,
         "age_rating": 12,
         "description": "A singleplayer puzzle game set in an empty robot-filled world.",
-        "releasedate": "2014-12-11"},
+        "release_date": "2014-12-11"},
         {"name": "The Witness",
         "user_score": 5,
         "num_user_ratings": 5,
@@ -116,7 +117,7 @@ def populate():
         "num_critic_ratings": 5,
         "age_rating": 12,
         "description": "A singleplayer puzzle game set on a mysterious island.",
-        "releasedate": "2016-01-26"}
+        "release_date": "2016-01-26"}
     ]
     sports=[
         {"name": "Rocket League",
@@ -126,7 +127,7 @@ def populate():
         "num_critic_ratings": 5,
         "age_rating": 3,
         "description": "A sports game resembling football only with cars and exploding goals.",
-        "releasedate": "2015-07-07"},
+        "release_date": "2015-07-07"},
         {"name": "Fifa 19",
         "user_score": 5,
         "num_user_ratings": 5,
@@ -134,7 +135,7 @@ def populate():
         "num_critic_ratings": 5,
         "age_rating": 3,
         "description": "A sports game allowing you to take control in your very own footballing world.",
-        "releasedate": "2018-09-28"},
+        "release_date": "2018-09-28"},
         {"name": "NBA 2K19",
         "user_score": 5,
         "num_user_ratings": 5,
@@ -142,7 +143,7 @@ def populate():
         "num_critic_ratings": 5,
         "age_rating": 3,
         "description": "A sports game allowing you to take control in your very own basketballing world.",
-        "releasedate": "2018-09-07"}
+        "release_date": "2018-09-07"}
     ]
     mmo=[
         {"name": "World Of Warcraft",
@@ -152,7 +153,7 @@ def populate():
         "num_critic_ratings": 5,
         "age_rating": 12,
         "description": "An MMORPG featuring a huge expansive world with multiple choices for race and class along with near-infinite quests.",
-        "releasedate": "2004-11-23"},
+        "release_date": "2004-11-23"},
         {"name": "Elder Scrolls Online",
         "user_score": 5,
         "num_user_ratings": 5,
@@ -160,7 +161,7 @@ def populate():
         "num_critic_ratings": 5,
         "age_rating": 12,
         "description": "An MMORPG featuring a huge expansive world with multiple choices for race and class along with near-infinite quests set in the same universe as Skyrim.",
-        "releasedate": "2014-04-04"},
+        "release_date": "2014-04-04"},
         {"name": "Guild Wars 2",
         "user_score": 5,
         "num_user_ratings": 5,
@@ -168,7 +169,7 @@ def populate():
         "num_critic_ratings": 5,
         "age_rating": 12,
         "description": "An MMORPG featuring a huge expansive world with multiple choices for race and class along with near-infinite quests.",
-        "releasedate": "2012-08-28"}
+        "release_date": "2012-08-28"}
     ]
     simulation=[
         {"name": "The Sims 4",
@@ -178,7 +179,7 @@ def populate():
         "num_critic_ratings": 5,
         "age_rating": 3,
         "description": "A simulation game in which you create an avatar and dictate it's life in the simulated world of Sims.",
-        "releasedate": "2014-09-02"},
+        "release_date": "2014-09-02"},
         {"name": "Kerbal Space Program",
         "user_score": 5,
         "num_user_ratings": 5,
@@ -186,7 +187,7 @@ def populate():
         "num_critic_ratings": 5,
         "age_rating": 3,
         "description": "A simulation game in which you build rockets to be piloted by strange minion-like creatures.",
-        "releasedate": "2011-06-24"},
+        "release_date": "2011-06-24"},
         {"name": "Farming Simulator 19",
         "user_score": 5,
         "num_user_ratings": 5,
@@ -194,7 +195,7 @@ def populate():
         "num_critic_ratings": 5,
         "age_rating": 3,
         "description": "A simulation game in which you own and manage a farm.",
-        "releasedate": "2018-11-20"}
+        "release_date": "2018-11-20"}
     ]
 
     # cats={"Action":{"games":action, "reviews":0},
@@ -289,7 +290,7 @@ def populate():
             print("Creating " + game_dict["name"] + " game")
             game = generate_game(category=category, name=game_dict["name"],
                                  age_rating=game_dict["age_rating"],
-                                 release_date=parse_date(game_dict["releasedate"]),
+                                 release_date=parse_date(game_dict["release_date"]),
                                     is_approved=True)
 
             # generate ratings for game
