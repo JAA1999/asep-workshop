@@ -61,6 +61,8 @@ class Game(models.Model):
     release_date = models.DateField(null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
 
+    is_approved = models.BooleanField(default=False)
+
     slug = models.SlugField(max_length=40)
 
     @property
@@ -119,4 +121,4 @@ class Comment(models.Model):
     def __str__(self):
         return '{} - {}'.format(self.game.name, str(self.user.username))
 
-#import RNG.signals
+# import RNG.signals
