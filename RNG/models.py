@@ -60,7 +60,7 @@ class Game(models.Model):
     description = models.TextField(null=True, blank=True)
     release_date = models.DateField(null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
-
+    picture = models.ImageField()
     is_approved = models.BooleanField(default=False)
 
     slug = models.SlugField(max_length=40)
