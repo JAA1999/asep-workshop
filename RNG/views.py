@@ -144,21 +144,21 @@ def gameV(request, category_name_slug, game_name_slug):
 	return render(request, 'RNG/game.html', context=context_dict)
 
 def add_gameV(request):
-	game_form = GameForm()
+	#game_form = GameForm()
 	if request.method == 'POST':
 		game_form = GameForm(data=request.POST)
 		
 		if game_form.is_valid():
-			game = game_form.save(commit=False)
-			
+			game = game_form.save()
 			game.save()
 			
 			
-			#if 'picture' in request.FILES:
-				#profile.picture = request.FILES['picture']
+			
+			if 'picture' in request.FILES:
+				game.picture = request.FILES['picture']
 				
 			#profile.save()
-			
+			game.save()
 			
 		else:
 			print(game_form.errors)

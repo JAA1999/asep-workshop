@@ -60,7 +60,9 @@ class Game(models.Model):
     description = models.CharField(max_length=9999)
     release_date = models.DateField(null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
-    picture = models.ImageField()
+    picture = models.ImageField(upload_to='game_images', blank=True)
+    file_name = models.CharField(max_length=32, blank=True)
+	
     is_approved = models.BooleanField(default=False)
 
     slug = models.SlugField(max_length=40)

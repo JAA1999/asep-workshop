@@ -5,10 +5,10 @@
 {% block body_block %}
 	{% if user.is_authenticated %}
         <h1>Add a Game</h1>
-            <form method='POST' action=".">
+            <form id="game_form" method='POST' action="." enctype="multipart/form-data">
 					{% csrf_token %}
 					{{ game_form.as_p }}
-				<input type="submit" value="submit" button class="signin">
+				<input type="submit" name="submit" value="submit" button class="signin">
 			</form>
 	{% else %}
 		<h1> You must be logged in to add a game. 

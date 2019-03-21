@@ -8,7 +8,7 @@
 	{% if game %}
     <div class = "mostViewed centre">
         <div class = "MVimageBlock ib">
-			<img src={% static "images/game.jpg"%}>
+			<img src="/media/game_images/{{ game.file_name }}/" />
 		</div>
         <div class = "MVtext center">
             <div class = "MVTitle centre">{{game.name}}</div>          
