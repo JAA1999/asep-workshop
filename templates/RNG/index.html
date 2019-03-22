@@ -8,7 +8,7 @@
 
 {% block body_block %}
      <div class="body centre">
-      <a class="centre" href="your href ali">
+      <a class="centre" href="{% url 'game' random_cat.slug random_game.slug %}">
           <div class="randomGame centre"><button class="randomButton centre">Get A Random Game</button></div>
       </a>
       <div class="gameContainer centre">
@@ -32,9 +32,27 @@
         </div>
       </div>
      
+      
       <div class="gameContainer centre">
-        <div class="GCTitle">Popular</div>
+        <div class="GCTitle">Popular Games</div>
         <div class="GCgroup">
+        {% for game in topFive %}
+          <div class="GCGame ib">
+          {% if game.file_name %}  
+              <div class="GCImg">
+                  <a href="{% url 'game' game.category.slug game.slug %}"><img src="/media/game_images/{{ game.file_name}}/" alt="GameImage"></a>
+              </div>
+              <div class="GCName"><b>{{game.name}}</b></div>
+          {% else %}
+              <div class="GCImg">
+                  <a href="{% url 'game' game.category.slug game.slug %}"><img src={% static "images/game.jpg" %}></a>
+              </div>
+              <div class="GCName"><b>{{game.name}}</b></div>
+          {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
             
           <!--copy this for the repeatable block
           Editing with django tags where appropriate
@@ -51,41 +69,6 @@
 
           !-->
           
-          <div class="GCGame">
-            <div class="GCImg">
-              <img src={% static "images/game.jpg"%}>
-              <p class="GCName"><b>game name</b></p>
-            </div>
-          </div>
-
-          <div class="GCGame">
-            <div class="GCImg">
-              <img src={% static "images/game.jpg"%}>
-              <p class="GCName"><b>game name</b></p>
-            </div>
-          </div>
-
-          <div class="GCGame">
-            <div class="GCImg">
-              <img src={% static "images/game.jpg"%}>
-              <p class="GCName"><b>game name</b></p>
-            </div>
-          </div>
-
-          <div class="GCGame">
-            <div class="GCImg">
-              <img src={% static "images/game.jpg"%}>
-              <p class="GCName"><b>game name</b></p>
-            </div>
-          </div>
-
-          <div class="GCGame">
-            <div class="GCImg">
-              <img src={% static "images/game.jpg"%}>
-              <p class="GCName"><b>game name</b></p>
-            </div>
-          </div>
-
         </div> 
       </div>
       

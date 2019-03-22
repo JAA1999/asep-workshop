@@ -1,3 +1,4 @@
+#IMPORTS
 from datetime import datetime
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
@@ -5,41 +6,50 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.db.models import Q
+import random
 
 from RNG.models import Category, Game, Comment, Rating
 from RNG.forms import CategoryForm, UserForm, GameForm, UserProfileForm, CommentForm, RatingForm
 
-def visitor_cookie_handler(request):
-	visits = int(request.COOKIES.get("visits","1"))
-	last_visit_cookie=request.COOKIES.get("last_visit",str(datetime.now()))
-	last_visit_time=datetime.strptime(last_visit_cookie[:-7], "%Y-%,-%d %H:%M:%S")
-	if (datetime.now()-last_visit_time).days > 0:
-		visits+=1
-		request.session["last_visit"]=str(datetime.now())
-	else:
-		request.session["last_visit"]=last_visit_cookie
-	request.session["visits"]=visits
-
+#view for home page
 def index(request):
-    newGameList= Game.objects.order_by("-release_date")#newgames
-    popGameList= Game.objects.order_by("rating")#popular games
-    newGames= []
-    popularGames= []
-    for r in newGameList:
-        print(r.name, r.release_date)
+	game_dict={}
+	newGameList= Game.objects.order_by("-release_date")#newgames
+	popGameList= Game.objects.order_by("rating")#popular games
+	for popGame in popGameList:
+		avg = popGame.avg_rating['score__avg']
+		if avg == None:
+			avg == 0.0
+		game_dict[popGame] = avg
+	sortedPop = sorted(game_dict, key=lambda i: float(game_dict[i]))
+	mostPop = sortedPop[::-1]
+	topFive = mostPop[:5]
+	#topFive.pop(topFive[0])
+	random_index = random.randrange(0, len(popGameList))
+	random_game = popGameList[random_index]
+	random_cat = random_game.category
+	newGames= []
+	popularGames= []
+	for r in newGameList:
+		print(r.name, r.release_date)
         
-    for i in range(1,6):
-        newGames.append(newGameList[i])
-        popularGames.append(popGameList[i])
+	for i in range(1,6):
+		newGames.append(newGameList[i])
+		popularGames.append(popGameList[i])
     
-    context_dict={"newGames":newGames,
-                  "popularGames": popularGames}
-    return render(request, 'RNG/index.html', context=context_dict)
+	context_dict={"newGames":newGames,
+                  "popularGames": popularGames,
+				  "random_game": random_game,
+				  "random_cat": random_cat,
+				  "topFive": topFive}
+	return render(request, 'RNG/index.html', context=context_dict)
 
+#view for about page
 def about(request):
     context_dict={}
     return render(request, 'RNG/about.html', context=context_dict)
 
+#view for signup page
 def signup(request):
 	registered = False
 	
