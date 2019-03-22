@@ -166,14 +166,6 @@ def gameV(request, category_name_slug, game_name_slug):
 		context_dict['av_critic'] = av_critic
 	else:
 		context_dict['av_critic'] = "%.2f" % round(av_critic,2)
-
-<<<<<<< HEAD
-def allgames(request):
-    games= Game.objects.order_by("name")
-    context_dict={"games":games}
-    return render(request, 'RNG/games.html', context=context_dict)
-
-=======
 	if av_user == None:
 		context_dict['av_user'] = av_user
 	else:
@@ -187,7 +179,6 @@ def allgames(request):
 	
 	return render(request, 'RNG/game.html', context=context_dict)
 	
->>>>>>> 68e8cabd527dfedce3d374d6aaf8280cabad6bd7
 def add_gameV(request):
 	if request.method == 'POST':
 		game_form = GameForm(data=request.POST)
@@ -209,6 +200,11 @@ def add_gameV(request):
 			
 	context_dict={'game_form':game_form}
 	return render(request, "RNG/add_game.html", context_dict)
+
+def allgames(request):
+    games= Game.objects.order_by("name")
+    context_dict={"games":games}
+    return render(request, 'RNG/games.html', context=context_dict)
 
 def search(request):
 	if request.method == 'GET':
