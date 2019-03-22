@@ -16,16 +16,35 @@
                 <div>{{game.description}}</div>
             </div>
 			<div class="rating_container right">
-				<div class="ib">Critic rating:</div>
-				<div class = "rating ib"><p class="fc right">Placeholder</p></div>
+				<div class="ib">Average Critic rating:</div>
+				<div class = "rating ib"><p class="fc right">{{av_critic}}</p></div>
 			</div>
 			<div class="rating_container right">
-				<div class="ib">User rating:</div>
-				<div class = "rating ib"><p class="fc right">Placeholder</p></div>
+				<div class="ib">Average User rating:</div>
+				<div class = "rating ib"><p class="fc right">{{av_user}}</p></div>
 			</div>
 		</div>
         
     </div>
+	<div class = "mostViewed centre">
+		{% if user.is_authenticated %}
+			{% if rated == True %}
+				You have already left a rating for this game.
+			{% else %}
+				<div class= "MVTitle ib">Leave a rating!</div>
+				<form method='POST' action=".">
+					{% csrf_token %}
+					{{ rating_form.as_p }}
+				<input type="submit" value="submit" button class="signin">
+			</form>
+			{% endif %}
+		{% else %}
+			<br />
+				Only signed in users can leave ratings. You can <a href="{% url 'auth_login' %}">sign in here</a> or 
+				<a href="{% url 'registration_register' %}">sign up here!</a>
+		{% endif %}
+		
+	</div>
 		
 		<div class="comments">
 			<div class= "MVTitle ib">{{ comments.count }} Comment{{ comments|pluralize }}</div>
