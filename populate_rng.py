@@ -264,9 +264,11 @@ def populate():
 
     def generate_user(critic):
         username = generate_string(10)
+        print(username)
         first_name = generate_string(10)
         last_name = generate_string(10)
-        user = UserProfile.objects.get_or_create(username=username, first_name=first_name, last_name=last_name)[0]
+        critic=True
+        user = UserProfile.objects.get_or_create(username=username, first_name=first_name, last_name=last_name, critic=critic)[0]
         user.save()
         return user
 
@@ -285,7 +287,9 @@ def populate():
           "It's good but it's no Witcher 3, praise Geraldo", "Controls are easy", "Good graphics", "I don't agree with any of you people",
           "Gave me a sense of pride and accomplishment", "Amazing", "Wow", "XD", "I love this game",
            "I left my wife so I could be with this game", "needs more water", "good with mods", "like skyrim but with guns",
-           "Keep up the good work", "What are games?"]
+           "Keep up the good work", "What are games?", "This game was shocking", "A fantastic experience", "Great story",
+           "Amazing to think it was only made in 5 days", "Trailer was better than game", ";)", "Curse you Perry the Platypus",
+           "First", "sᴉɥʇ pɐǝɹ oʇ uǝǝɹɔs ɹnoʎ uɹnʇ oʇ ǝʌɐɥ llᴉʍ noʎ os uʍop ǝpᴉsdn sᴉɥʇ ƃuᴉdʎʇ ɯɐ I"]
         comment = content[random.randint(0,len(content)-1)]
         if comment is None:
             comment = Comment.objects.get_or_create(user=user, game=game, content=comment)[0]
