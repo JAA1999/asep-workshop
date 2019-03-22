@@ -1,0 +1,21 @@
+{% extends 'RNG/base.html' %}
+{% load staticfiles %}
+{% block title %} Search {% endblock %}
+{% block body_block %}
+{% if userprofile.critic %}
+{%  for userprofile in userprofiles %}
+    <div class="body centre">
+        <div class="mostViewed centre">
+        <div class="MVtext">
+          <a href="{% url 'critic' critic.slug %}"><div class="MVTitle"><u>{{userprofile.username}}</u></div></a>
+          <div class="MVname"></div><!-- this is for the django tag!-->
+          <div class="MVdescription">
+            <div>{{game.description}}</div><!-- this is for the django tag!-->
+          </div>
+        </div>
+        
+      </div>
+    </div>
+{% endfor %}
+{% endif %}
+{% endblock %}

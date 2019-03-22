@@ -5,17 +5,16 @@
 {% block body_block %}
 	{% if user.is_authenticated %}
         <h1>Add a Game</h1>
-            <form id="game_form" method='POST' action="." enctype="multipart/form-data" onclick="myFunction();">
+            <form id="game_form" method='POST' action="." enctype="multipart/form-data">
 					{% csrf_token %}
 					{{ game_form.as_p }}
-					<script>
-						function myFunction() {
-							alert("Your addition will be verified by an admin. Thank you for your contribution.")
-						}
-					</script>
-
-				<input type="submit" name="submit" value="submit" button class="signin">
+				<input type="submit" name="submit" value="submit" button class="signin" onclick="myFunction();">
 			</form>
+			<script>
+				function myFunction() {
+					alert("Your addition will be verified by an admin. Thank you for your contribution.")
+				}
+			</script>
 	{% else %}
 		<h1> You must be logged in to add a game. 
 		<a href="{% url 'auth_login' %}">sign in here</a> or 

@@ -270,19 +270,27 @@ def populate():
         user.save()
         return user
 
-    def generate_rating(game, user):
+    def generate_rating(game, user, critic_rating):
         # generate random val between 1-10
         score = random.randint(1, 10)
-        rating = Rating.objects.get_or_create(score=score, game=game, user=user)[0]
+        #critic_rating = (random.choice([True,False])==2)
+        rating = Rating.objects.get_or_create(score=score, game=game, user=user, critic_rating=critic_rating)[0]
         rating.save()
         return rating
 
     def generate_comment(game, user, comment=None):
-        content = generate_string(100)
+        content = ["This game was excellent, would recommend playing", "10/10 IGN", "Stunning experience",
+         "Awful experience, should not have been made", "This game lit", "It was aight", "Could have been better",
+          "Am I first?", "This game is toxic", "So difficult I broke my controller", "Not bad 7/5", "This is an underrated gem",
+          "It's good but it's no Witcher 3, praise Geraldo", "Controls are easy", "Good graphics", "I don't agree with any of you people",
+          "Gave me a sense of pride and accomplishment", "Amazing", "Wow", "XD", "I love this game",
+           "I left my wife so I could be with this game", "needs more water", "good with mods", "like skyrim but with guns",
+           "Keep up the good work", "What are games?"]
+        comment = content[random.randint(0,len(content)-1)]
         if comment is None:
-            comment = Comment.objects.get_or_create(user=user, game=game, content=content)[0]
+            comment = Comment.objects.get_or_create(user=user, game=game, content=comment)[0]
         else:
-            comment = Comment.objects.get_or_create(user=user, game=game, content=content)[0]
+            comment = Comment.objects.get_or_create(user=user, game=game, content=comment)[0]
         comment.save()
         return comment
 
@@ -341,7 +349,7 @@ def populate():
             for i in range(random.randint(0, 20)):
                 print("Creating rating")
                 try:
-                    rating = generate_rating(user=get_random_user(), game=game)
+                    rating = generate_rating(user=get_random_user(), game=game, critic_rating= random.choice([True,False]))
                     rating.save()
                 except IntegrityError:  # catch unique_constraint failed
                     ...
