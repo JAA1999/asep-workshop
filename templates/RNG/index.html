@@ -31,7 +31,7 @@
           {% endfor %}
         </div>
       </div>
-     
+      
       
       <div class="gameContainer centre">
         <div class="GCTitle">Popular Games</div>
@@ -53,42 +53,23 @@
           {% endfor %}
         </div>
       </div>
-            
-          <!--copy this for the repeatable block
-          Editing with django tags where appropriate
-          
-          <div class="GCGame">
-            <div class="GCImg">
-              <a href="{game.url}"
-              <img src="game.jpg"> //the location in media that the image for the game is
-              <p class="GCName"><b>{game.title}</b></p>
-            </div>
-          </div>
-
-          and remove the html that looks like this
-
-          !-->
-          
-        </div> 
-      </div>
       
+      
+      {% if top.file_name %}
       <div class="mostViewed centre">
         <div class= "MVimageBlock ib">
-		<div class="GCGame ib">
-			{% if top.file_name %}  
-              <div class="GCImg">
-                  <a href="{% url 'game' top.category.slug top.slug %}"><img src="/media/game_images/{{ top.file_name}}/" alt="GameImage"></a>
-              </div>
-              <div class="GCName"><b>{{top.name}}</b></div>
-			{% else %}
-              <div class="GCImg">
-                  <a href="{% url 'game' top.category.slug top.slug %}"><img src={% static "images/game.jpg" %}></a>
-              </div>
-              <div class="GCName"><b>{{top.name}}</b></div>
-			  <img src={% static "images/largeGame.jpg"%}>
-			{% endif %}
-		</div>
-		
+          <a href="{% url 'game' top.category.slug top.slug %}"><img src="/media/game_images/{{ top.file_name}}/"></a><!-- this is for the django tag!-->
+        </div>
+        <div class="MVtext">
+          <a href="{% url 'game' top.category.slug top.slug %}"><div class="MVTitle"><u>Highest Rated</u></div></a>
+          <div class="MVname">{{top.name}}</div><!-- this is for the django tag!-->
+          <div class="MVdescription">
+            <pre>{{top.description}}</pre><!-- this is for the django tag!-->
+          </div>
+        </div>
+      </div>       
+      {% endif %}s
+      
         
       </div>
 {% endblock %}
