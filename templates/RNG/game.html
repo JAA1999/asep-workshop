@@ -26,12 +26,13 @@
 		</div>
         
     </div>
-	<div class = "mostViewed centre">
+	<div class = "leaveRating">
+		<div class= "MVTitle ib">Rate This Game</div>
 		{% if user.is_authenticated %}
 			{% if rated == True %}
+				<p>
 				You have already left a rating for this game.
 			{% else %}
-				<div class= "MVTitle ib">Leave a rating!</div>
 				<form method='POST' action=".">
 					{% csrf_token %}
 					{{ rating_form.as_p }}
@@ -40,10 +41,10 @@
 			{% endif %}
 		{% else %}
 			<br />
-				Only signed in users can leave ratings. You can <a href="{% url 'auth_login' %}">sign in here</a> or 
-				<a href="{% url 'registration_register' %}">sign up here!</a>
+			Only signed in users can leave ratings. You can <a href="{% url 'auth_login' %}">sign in here</a> or 
+			<a href="{% url 'registration_register' %}">sign up here!</a>
 		{% endif %}
-		
+		<p>
 	</div>
 		
 		<div class="comments">
