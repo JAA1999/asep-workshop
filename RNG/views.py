@@ -22,8 +22,18 @@ def visitor_cookie_handler(request):
 	request.session["visits"]=visits
 
 def index(request):
+	game_dict={}
 	newGameList= Game.objects.order_by("-release_date")#newgames
 	popGameList= Game.objects.order_by("rating")#popular games
+	for popGame in popGameList:
+		avg = popGame.avg_rating['score__avg']
+		if avg == None:
+			avg == 0.0
+		game_dict[popGame] = avg
+	sortedPop = sorted(game_dict, key=lambda i: float(game_dict[i]))
+	mostPop = sortedPop[::-1]
+	topFive = mostPop[:5]
+	#topFive.pop(topFive[0])
 	random_index = random.randrange(0, len(popGameList))
 	random_game = popGameList[random_index]
 	random_cat = random_game.category
@@ -39,7 +49,8 @@ def index(request):
 	context_dict={"newGames":newGames,
                   "popularGames": popularGames,
 				  "random_game": random_game,
-				  "random_cat": random_cat}
+				  "random_cat": random_cat,
+				  "topFive": topFive}
 	return render(request, 'RNG/index.html', context=context_dict)
 
 def about(request):
