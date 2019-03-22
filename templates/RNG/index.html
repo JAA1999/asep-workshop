@@ -8,11 +8,11 @@
 
 {% block body_block %}
      <div class="body centre">
-      <a class="centre" href="your href ali">
+      <a class="centre" href="{% url 'game' random_cat.slug random_game.slug %}">
           <div class="randomGame centre"><button class="randomButton centre">Get A Random Game</button></div>
       </a>
       <div class="gameContainer centre">
-        <div class="GCTitle">Popular</div>
+        <div class="GCTitle">New Releases</div>
         <div class="GCgroup">
         {% for game in newGames %}
           <div class="GCGame ib">
@@ -33,7 +33,7 @@
       </div>
      
       <div class="gameContainer centre">
-        <div class="GCTitle">New Releases</div>
+        <div class="GCTitle">Popular</div>
         <div class="GCgroup">
             
           <!--copy this for the repeatable block

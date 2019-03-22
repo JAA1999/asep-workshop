@@ -6,28 +6,32 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.db.models import Q
+import random
 
 from RNG.models import Category, Game, Comment, Rating
 from RNG.forms import CategoryForm, UserForm, GameForm, UserProfileForm, CommentForm, RatingForm
 
 #view for home page
 def index(request):
-	#list of new games
-    newGameList= Game.objects.order_by("-release_date")#newgames
-	#list of popular games by rating
-    popGameList= Game.objects.order_by("rating")#popular games
-    newGames= []
-    popularGames= []
-    for r in newGameList:
-        print(r.name, r.release_date)
+	newGameList= Game.objects.order_by("-release_date")#newgames
+	popGameList= Game.objects.order_by("rating")#popular games
+	random_index = random.randrange(0, len(popGameList))
+	random_game = popGameList[random_index]
+	random_cat = random_game.category
+	newGames= []
+	popularGames= []
+	for r in newGameList:
+		print(r.name, r.release_date)
         
-    for i in range(1,6):
-        newGames.append(newGameList[i])
-        popularGames.append(popGameList[i])
+	for i in range(1,6):
+		newGames.append(newGameList[i])
+		popularGames.append(popGameList[i])
     
-    context_dict={"newGames":newGames,
-                  "popularGames": popularGames}
-    return render(request, 'RNG/index.html', context=context_dict)
+	context_dict={"newGames":newGames,
+                  "popularGames": popularGames,
+				  "random_game": random_game,
+				  "random_cat": random_cat}
+	return render(request, 'RNG/index.html', context=context_dict)
 
 #view for about page
 def about(request):
@@ -205,10 +209,10 @@ def search(request):
 	if request.method == 'GET':
 		game_name = request.GET.get('search')
 		try:
-			status = Game.objects.filter(name__icontains=game_name)
+			games = Game.objects.filter(name__icontains=game_name)
 		except:
-			return render(request, "wubba",{})
-		return render(request, "RNG/search.html", {"games":status})
+			pass #will only have to pass if there is no Game table/ no column for name
+		return render(request, "RNG/games.html", {"games": games})
 	else:
 		return render(request, "RNG/games.html", {})
 
