@@ -8,7 +8,7 @@ import populate_rng
 
 # Create your tests here.
 
-
+# Run with python manage.py test RNG
 class DatabaseSaveTests(TestCase):
     cat = None
     game = None
