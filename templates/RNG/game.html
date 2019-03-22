@@ -63,7 +63,7 @@
 			
 			{% for comment in comments %}
 				<hr>
-				<b>{{ comment.user }}</b><br />
+				<b>{{ comment.user }}{% if user.critic %} (critic){% endif %}</b><br />
 				<p>{{ comment.content }}</p>
 				<p>{{ comment.timestamp }}</p>
 				<hr>
