@@ -216,10 +216,10 @@ def search(request):
 	if request.method == 'GET':
 		game_name = request.GET.get('search')
 		try:
-			status = Game.objects.filter(name__icontains=game_name)
+			games = Game.objects.filter(name__icontains=game_name)
 		except:
-			return render(request, "wubba",{})
-		return render(request, "RNG/search.html", {"games":status})
+			pass #will only have to pass if there is no Game table/ no column for name
+		return render(request, "RNG/games.html", {"games": games})
 	else:
 		return render(request, "RNG/games.html", {})
 
