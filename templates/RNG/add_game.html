@@ -7,11 +7,11 @@
 	<br />
 	<div class= "MVTitle ib"><u>Request a Game</u></div>
 	{% if user.is_authenticated %}
-			Please fill out the forms below to request a game. <b>Fill out release date in YYYY-MM-DD format</b>
+			<br />Please fill out the forms below to request a game. <b>Fill out release date in YYYY-MM-DD format</b>
             <form id="game_form" method='POST' action="." enctype="multipart/form-data">
 					{% csrf_token %}
 					{{ game_form.as_p }}
-					<b>Please enter the picture file name and type as displayed above onc you have selected the image</b>
+					<b>Please enter the picture file name and type as displayed above once you have selected the image</b>
 				<input type="submit" name="submit" value="submit" button class="signin" onclick="myFunction();">
 			</form>
 			<script>
