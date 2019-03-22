@@ -13,6 +13,8 @@ from RNG.forms import CategoryForm, UserForm, GameForm, UserProfileForm, Comment
 
 #view for home page
 def index(request):
+	#populates list of new and popular games
+	#to display on carousels on index
 	game_dict={}
 	newGameList= Game.objects.order_by("-release_date")#newgames
 	popGameList= Game.objects.order_by("rating")#popular games
@@ -86,7 +88,8 @@ def signup(request):
 				{'user_form': user_form,
 				'profile_form': profile_form,
 				'registered': registered})
-				
+
+#view for login				
 def user_login(request):
 	if request.method == 'POST':
 		username = request.POST.get('username')
@@ -106,12 +109,14 @@ def user_login(request):
 			
 	else:
 		return render(request, 'RNG/signin.html', {})
-		
+
+#view for logout		
 @login_required
 def user_logout(request):
 	logout(request)
 	return HttpResponseRedirect(reverse('index'))
-	
+
+#view for all categories: shows all categories sorted by name	
 def show_categories(request):
 	context_dict={}
 	try:
@@ -122,6 +127,7 @@ def show_categories(request):
 		context_dict['category']=None
 	return render(request, 'RNG/show_categories.html', context_dict)
 
+#view for inside category: shows all games within category
 def category(request, category_name_slug):
 	context_dict={}
 	try:
@@ -133,7 +139,8 @@ def category(request, category_name_slug):
 		context_dict['category']=None
 		context_dict['games']=None
 	return render(request, 'RNG/category.html', context_dict)
-	
+
+#view for a game page	
 def gameV(request, category_name_slug, game_name_slug):
 	game = Game.objects.get(slug=game_name_slug)
 	current_user = request.user
@@ -192,7 +199,8 @@ def gameV(request, category_name_slug, game_name_slug):
 	context_dict['rated']=rated
 	
 	return render(request, 'RNG/game.html', context=context_dict)
-	
+
+#view for adding game	
 def add_gameV(request):
 	if request.method == 'POST':
 		game_form = GameForm(data=request.POST)
@@ -215,11 +223,13 @@ def add_gameV(request):
 	context_dict={'game_form':game_form}
 	return render(request, "RNG/add_game.html", context_dict)
 
+#view for games: shows all games in library
 def allgames(request):
     games= Game.objects.order_by("name")
     context_dict={"games":games}
     return render(request, 'RNG/games.html', context=context_dict)
 
+#view for search: when using site search
 def search(request):
     if request.method == 'GET':
         game_name = request.GET.get('search')
