@@ -35,9 +35,3 @@ urlpatterns = [
 	url(r'^accounts/', include('registration.backends.simple.urls')),
 	url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    # So fellas, just using the rango
-    # URL mapping stuff but replacing
-    # 'rango' with 'rng'. Be careful,
-    # given folder names RNG in caps
-    # but it's likely bad practise to
-    # use caps in URLS.

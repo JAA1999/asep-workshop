@@ -221,12 +221,16 @@ def allgames(request):
     return render(request, 'RNG/games.html', context=context_dict)
 
 def search(request):
-	if request.method == 'GET':
-		game_name = request.GET.get('search')
-		try:
-			games = Game.objects.filter(name__icontains=game_name)
-		except:
-			pass #will only have to pass if there is no Game table/ no column for name
-		return render(request, "RNG/games.html", {"games": games})
-	else:
-		return render(request, "RNG/games.html", {})
+    if request.method == 'GET':
+        game_name = request.GET.get('search')
+        try:
+            games = Game.objects.filter(name__icontains=game_name)
+        except:
+            games =[]
+        try:
+            cats= Category.objects.filter(name__icontains=game_name)
+        except:
+            cats=[]
+        return render(request, "RNG/games.html", {"games": games, "cats": cats})
+    else:
+        return render(request, "RNG/games.html", {})

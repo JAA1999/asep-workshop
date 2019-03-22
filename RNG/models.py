@@ -7,19 +7,6 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import Permission
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-
-# TODO:
-# Should add manage.py command to create groups
-# Set group permissions for critics and reg users
-# use clean() to make sure user is in correct group according to critic bool
-# call this command in the pop script
-# https://stackoverflow.com/questions/22250352/programmatically-create-a-django-group-with-permissions
-
-# Database Objects
-# Remember to migrate!
-# Use python manage.py migrate --run-syncdb
-
-
 class UserProfile(AbstractUser):
     # AbstractUser relevant fields:
     # username, password, first_name, last_name, date_joined, email, last_login

@@ -4,6 +4,7 @@ from RNG.models import UserProfile, Category, Game, Comment, Rating
 from django.contrib.auth.models import User
 from django import forms
 
+#
 class CategoryForm(forms.ModelForm):
 	name = forms.CharField(max_length=128,
 							help_text="Please enter the category name.")
@@ -19,7 +20,7 @@ class GameForm(forms.ModelForm):
 
 	class Meta:
 		model = Game
-		fields = ("name", "age_rating", "description", "release_date", "category", "picture", "file_name", "is_approved")
+		fields = ("name", "age_rating", "description", "release_date", "category", "picture", "file_name")
 	
 class RatingForm(forms.ModelForm):
 	score = forms.FloatField()
