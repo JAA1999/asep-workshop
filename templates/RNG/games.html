@@ -2,9 +2,27 @@
 {% load staticfiles %}
 {% block title %} Search {% endblock %}
 {% block body_block %}
+<div class="body centre">
+{% if cats %}
+<p class="MVTitle">Categories</p>
+{% for cat in cats %}
+        <div class="mostViewed centre">
+        <div class= "MVimageBlock ib">
+          <a href="{% url 'category' cat.slug %}">
+            <img src={{cat.imageUrl}}>
+           </a><!-- this is for the django tag!-->
+        </div>
+        <div class="MVtext">
+          <a href="{% url 'category' cat.slug %}"><div class="MVTitle"><u>{{cat.name}}</u></div></a>
+        </div>
+        
+      </div>
+{% endfor %}
+{% endif %}
+
 {% if games %}
+<p class="MVTitle">Games</p>
 {% for game in games %}
-    <div class="body centre">
         <div class="mostViewed centre">
         <div class= "MVimageBlock ib">
           <a href="{% url 'game' game.category.slug game.slug %}">
@@ -20,7 +38,7 @@
         </div>
         
       </div>
-    </div>
 {% endfor %}
 {% endif %}
+</div>
 {% endblock %}
