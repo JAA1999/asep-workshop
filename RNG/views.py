@@ -6,8 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 
-from RNG.models import Category, Game, Comment
-from RNG.forms import CategoryForm, UserForm, GameForm, UserProfileForm, CommentForm
+from RNG.models import Category, Game, Comment, Rating
+from RNG.forms import CategoryForm, UserForm, GameForm, UserProfileForm, CommentForm, RatingForm
 
 def visitor_cookie_handler(request):
 	visits = int(request.COOKIES.get("visits","1"))
@@ -106,13 +106,6 @@ def show_categories(request):
 		context_dict['category']=categorylist
 	except Category.DoesNotExist:
 		context_dict['category']=None
-	
-	#if request.method=='POST':
-		#query=request.POST['query'].strip()
-		#if query:
-			#result_list=run_query(query)
-			#context_dict['query']=query
-			#context_dict['result_list']=result_list
 	return render(request, 'RNG/show_categories.html', context_dict)
 
 def category(request, category_name_slug):
@@ -125,51 +118,78 @@ def category(request, category_name_slug):
 	except Category.DoesNotExist:
 		context_dict['category']=None
 		context_dict['games']=None
-	#context_dict['query']=category.name
-	#result_list=[]
-	#if request.method=='POST':
-		#query=request.POST['query'].strip()
-		#if query:
-			#result_list=run_query(query)
-			#context_dict['query']=query
-			#context_dict['result_list']=result_list
 	return render(request, 'RNG/category.html', context_dict)
 	
 def gameV(request, category_name_slug, game_name_slug):
-
 	game = Game.objects.get(slug=game_name_slug)
+	current_user = request.user
+	critic_score = False
+	av_critic = game.avg_critic_rating['score__avg']
+	av_user = game.avg_user_rating['score__avg']
+	if current_user.is_authenticated:
+		if current_user.critic == True:
+			critic_score = True
+	
 	comments = Comment.objects.filter(game=game).order_by('-timestamp')
+	rated = False
+	ratings = Rating.objects.filter(game=game)
+	for rater in ratings:
+		if rater.user == request.user:
+			rated = True
 				
 	if request.method == 'POST':
 		comment_form = CommentForm(request.POST or None)
+		rating_form = RatingForm(request.POST or None)
 		if comment_form.is_valid():
 			content = request.POST.get('content')
 			comment = Comment.objects.create(game=game, user=request.user, content=content)
 			comment.save()
+		if rating_form.is_valid():
+			score = request.POST.get('score')
+				
+			if critic_score:
+				rating = Rating.objects.create(game=game, user=request.user, score=score, critic_rating = True)
+				av_critic = game.avg_critic_rating['score__avg']
+			else:
+				rating = Rating.objects.create(game=game, user=request.user, score=score)
+				av_user = game.avg_user_rating['score__avg']
+				
+			rating.save()
+			rated = True
 	else:
 		comment_form = CommentForm()
+		rating_form = RatingForm()
 		
-	context_dict={'game':game, 
-			'comments': comments,
-			'comment_form': comment_form,}
-			
-	return render(request, 'RNG/game.html', context=context_dict)
+	
+	context_dict = {}
+	if av_critic == None:
+		context_dict['av_critic'] = av_critic
+	else:
+		context_dict['av_critic'] = "%.2f" % round(av_critic,2)
 
+	if av_user == None:
+		context_dict['av_user'] = av_user
+	else:
+		context_dict['av_user'] = "%.2f" % round(av_user,2)
+		
+	context_dict['game']=game
+	context_dict['comments']=comments
+	context_dict['comment_form']=comment_form
+	context_dict['rating_form']=rating_form
+	context_dict['rated']=rated
+	
+	return render(request, 'RNG/game.html', context=context_dict)
+	
 def add_gameV(request):
-	#game_form = GameForm()
 	if request.method == 'POST':
 		game_form = GameForm(data=request.POST)
 		
 		if game_form.is_valid():
 			game = game_form.save()
 			game.save()
-			
-			
-			
+
 			if 'picture' in request.FILES:
 				game.picture = request.FILES['picture']
-				
-			#profile.save()
 			game.save()
 			
 		else:

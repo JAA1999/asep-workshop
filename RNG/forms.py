@@ -1,5 +1,5 @@
 from django import forms
-from RNG.models import UserProfile, Category, Game, Comment
+from RNG.models import UserProfile, Category, Game, Comment, Rating
 from django.contrib.auth.models import User
 from django import forms
 
@@ -20,6 +20,11 @@ class GameForm(forms.ModelForm):
 		model = Game
 		fields = ("name", "age_rating", "description", "release_date", "category", "picture", "file_name", "is_approved")
 	
+class RatingForm(forms.ModelForm):
+	score = forms.FloatField()
+	class Meta:
+		model = Rating
+		fields = ("score", )
 
 class UserForm(forms.ModelForm):
 	password = forms.CharField(widget=forms.PasswordInput()) #,max_length = 32, help_text="Create a password of at least 8 characters long ",required=True)
