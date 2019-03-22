@@ -74,15 +74,21 @@
       
       <div class="mostViewed centre">
         <div class= "MVimageBlock ib">
-          <img src={% static "images/largeGame.jpg"%}><!-- this is for the django tag!-->
-        </div>
-        <div class="MVtext">
-          <div class="MVTitle"><u>Most Viewed</u></div>
-          <div class="MVname">{game.name}</div><!-- this is for the django tag!-->
-          <div class="MVdescription">
-            <pre>{game.description}</pre><!-- this is for the django tag!-->
-          </div>
-        </div>
+		<div class="GCGame ib">
+			{% if top.file_name %}  
+              <div class="GCImg">
+                  <a href="{% url 'game' top.category.slug top.slug %}"><img src="/media/game_images/{{ top.file_name}}/" alt="GameImage"></a>
+              </div>
+              <div class="GCName"><b>{{top.name}}</b></div>
+			{% else %}
+              <div class="GCImg">
+                  <a href="{% url 'game' top.category.slug top.slug %}"><img src={% static "images/game.jpg" %}></a>
+              </div>
+              <div class="GCName"><b>{{top.name}}</b></div>
+			  <img src={% static "images/largeGame.jpg"%}>
+			{% endif %}
+		</div>
+		
         
       </div>
 {% endblock %}

@@ -24,7 +24,9 @@ def index(request):
 			game_dict[popGame] = avg
 	sortedPop = sorted(game_dict, key=lambda i: float(game_dict[i]))
 	mostPop = sortedPop[::-1]
-	topFive = mostPop[:5]
+	topSix = mostPop[:6]
+	top = topSix[0]
+	topFive = topSix[1:6]
 	#topFive.pop(topFive[0])
 	random_index = random.randrange(0, len(popGameList))
 	random_game = popGameList[random_index]
@@ -42,7 +44,8 @@ def index(request):
                   "popularGames": popularGames,
 				  "random_game": random_game,
 				  "random_cat": random_cat,
-				  "topFive": topFive}
+				  "topFive": topFive,
+				  "top": top}
 	return render(request, 'RNG/index.html', context=context_dict)
 
 #view for about page
