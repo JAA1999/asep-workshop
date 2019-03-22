@@ -10,9 +10,15 @@ Jason Cook(2328261c) Alasdair Russel(2315645r) Ross Johnstone(2326663j) Jamie Al
 ## Running Instructions
 
 git clone https://github.com/JAA1999/WAD_Project.git
+
 cd wad_project
+
 git manage.py makemigrations
+
 git manage.py migrate
+
 git manage.py migrate --run-syncdb
+
 git populate_rng.py 
+
 git manage.py runserver
