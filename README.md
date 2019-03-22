@@ -16,6 +16,8 @@ http://ratenewgameswad2.pythonanywhere.com/rng/
 
 git clone https://github.com/JAA1999/WAD_Project.git
 
+pip install -r requirements.txt
+
 cd wad_project
 
 git manage.py makemigrations
