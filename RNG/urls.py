@@ -3,6 +3,7 @@ from RNG import views
 from django.conf.urls.static import static
 from django.conf import settings
 
+#url patterns linking each page to a url
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^about/', views.about, name='about'),
