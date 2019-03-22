@@ -24,9 +24,12 @@
       
 
 			{% if user.is_authenticated %}
-				
+				{% if user.critic %}
+            <div class="WelcomeCritic ib">Welcome {{ user.username }}</div><div class="isCritic ib">(critic)</div>
+            {% else %}
+            <div class="Welcome ib">Welcome {{ user.username }}</div>
+            {% endif %}
 				<div class="signedinBlock ib">
-				<div class="Welcome">Welcome {{ user.username }}</div>
 				<a href="{% url 'auth_password_change' %}"><div><button class="signin ">Change Password</button></div></a>
 				<a href="{% url 'signout' %}"><div><button class="signin ">Sign Out</button></div></a>
 				</div>

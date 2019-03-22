@@ -216,4 +216,3 @@ def search(request):
 		return render(request, "RNG/games.html", {"games": games})
 	else:
 		return render(request, "RNG/games.html", {})
-

@@ -268,16 +268,38 @@ input[type=submit]:hover{
 .signedinBlock{
       position: absolute;
       right: 60px;
-      top: 35px;
+      top: 55px;
 }
 
 .Welcome{
-	  margin: 1px;
-     font-family:"Arial";
-     color: #00EE00;
-	  text-align: center;
+	   position: absolute;
+      right: 60px;
+      top: 35px;
+      margin: 1px;
+      font-family:"Arial";
+      color: #00EE00;
+	   text-align: center;
 }
 
+.WelcomeCritic{
+      position: absolute;
+      right: 110px;
+      top: 35px;
+      margin: 1px;
+      font-family:"Arial";
+      color: #00EE00;
+	   text-align: center;
+}
+
+.isCritic{
+      position: absolute;
+      right: 60px;
+      top: 35px;
+      margin: 1px;
+      font-family:"Arial";
+      color: #00EE00;
+	   text-align: center;        
+}
 
 .dropbtn {
   min-width: 150px;
