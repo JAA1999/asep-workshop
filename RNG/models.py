@@ -90,7 +90,7 @@ class Game(models.Model):
 
 
 class Rating(models.Model):
-    score = models.IntegerField(validators=[MaxValueValidator(5), MinValueValidator(1)])
+    score = models.IntegerField(validators=[MaxValueValidator(10), MinValueValidator(1)])
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     critic_rating = models.BooleanField(default=False)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)

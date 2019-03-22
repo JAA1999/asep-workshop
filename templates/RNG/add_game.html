@@ -3,22 +3,25 @@
 
 
 {% block body_block %}
+	<div class="body centre">
+	<div class= "MVTitle ib"><u>Request a Game</u></div>
 	{% if user.is_authenticated %}
-        <h1>Add a Game</h1>
+			<p>
+			Please fill out the forms below to add game.<b>Release date should be in format YYYY-MM-DD</b>
             <form id="game_form" method='POST' action="." enctype="multipart/form-data" onclick="myFunction();">
 					{% csrf_token %}
 					{{ game_form.as_p }}
-					<script>
-						function myFunction() {
-							alert("Your addition will be verified by an admin. Thank you for your contribution.")
-						}
-					</script>
+					<b>Please enter the file name including the file's type as displayed above once the image is selected.</b>
+					<br />
 
 				<input type="submit" name="submit" value="submit" button class="signin">
 			</form>
 	{% else %}
-		<h1> You must be logged in to add a game. 
-		<a href="{% url 'auth_login' %}">sign in here</a> or 
-		<a href="{% url 'registration_register' %}">sign up here!</a></h1>
+		
+		<p><b>You must be logged in to add a game. 
+		<a href="{% url 'auth_login' %}Sign in here</a> or 
+		<a href="{% url 'registration_register' %}">sign up here!</a></b>
 	{% endif %}
+	</div>
+	</div>
 {% endblock %}
