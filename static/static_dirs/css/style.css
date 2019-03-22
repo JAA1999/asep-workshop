@@ -384,6 +384,9 @@ input[type=submit]:hover{
       background-color: #E1E1E1;
       margin-top: 40px;
       box-shadow: 4px 4px 8px 0px #696969;
+      position: sticky;
+      right:0;
+      left:0;
 }
 
 .GCTitle{
@@ -398,6 +401,9 @@ input[type=submit]:hover{
 /*holds the games*/
 .GCgroup{
       display: block;
+      position: sticky;
+      right:0;
+      left:0;
 }
 
 /*Holds individual game*/
@@ -405,10 +411,16 @@ input[type=submit]:hover{
       display: inline-block;
       text-align: center;
       padding-left: 25px;
+      max-width:140px;
+      positon: absolute;
+      top: 0;
+      right:0;
+      left:0;
 }
+
 .GCImg{
       width: 140px;
-      height: 191px;
+      max-height: 191px;
       overflow: hidden;
 }
 
@@ -417,6 +429,8 @@ input[type=submit]:hover{
       font-size: 100%;
       color: #323232;
       margin: 4px;
+      max-width=140px;
+      overflow= auto;
 }
 
 
