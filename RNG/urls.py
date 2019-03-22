@@ -17,4 +17,5 @@ urlpatterns = [
     url(r'^signout/$', views.user_logout, name='signout'),
     #url(r'^game', views.game, name='game'),
     url(r'^search', views.search, name='search'),
+    url(r'^allgames', views.allgames, name='allgames')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

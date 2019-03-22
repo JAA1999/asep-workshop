@@ -155,6 +155,11 @@ def gameV(request, category_name_slug, game_name_slug):
 			
 	return render(request, 'RNG/game.html', context=context_dict)
 
+def allgames(request):
+    games= Game.objects.order_by("name")
+    context_dict={"games":games}
+    return render(request, 'RNG/games.html', context=context_dict)
+
 def add_gameV(request):
 	#game_form = GameForm()
 	if request.method == 'POST':
@@ -191,5 +196,5 @@ def search(request):
 			return render(request, "wubba",{})
 		return render(request, "RNG/search.html", {"games":status})
 	else:
-		return render(request, "RNG/search.html", {})
+		return render(request, "RNG/games.html", {})
 

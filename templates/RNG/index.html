@@ -8,20 +8,22 @@
 
 {% block body_block %}
      <div class="body centre">
-      
+      <a class="centre" href="your href ali">
+          <div class="randomGame centre"><button class="randomButton centre">Get A Random Game</button></div>
+      </a>
       <div class="gameContainer centre">
         <div class="GCTitle">Popular</div>
         <div class="GCgroup">
         {% for game in newGames %}
           <div class="GCGame ib">
-          {% if game.picture %}  
+          {% if game.file_name %}  
               <div class="GCImg">
-                  <a href="{% url 'game' game.category.slug game.slug %}"<img src={{game.picture.url}}></a>
+                  <a href="{% url 'game' game.category.slug game.slug %}"><img src="/media/game_images/{{ game.file_name}}/" alt="GameImage"></a>
               </div>
               <p class="GCName"><b>{{game.name}}</b></p>
           {% else %}
               <div class="GCImg">
-                  <a href="{% url 'game' game.category.slug game.slug %}"<img src={% static "images/game.jpg" %}></a>
+                  <a href="{% url 'game' game.category.slug game.slug %}"><img src={% static "images/game.jpg" %}></a>
               </div>
               <p class="GCName"><b>{{game.name}}</b></p>
           {% endif %}
