@@ -5,9 +5,15 @@
 {% block body_block %}
 	{% if user.is_authenticated %}
         <h1>Add a Game</h1>
-            <form id="game_form" method='POST' action="." enctype="multipart/form-data">
+            <form id="game_form" method='POST' action="." enctype="multipart/form-data" onclick="myFunction();">
 					{% csrf_token %}
 					{{ game_form.as_p }}
+					<script>
+						function myFunction() {
+							alert("Your addition will be verified by an admin. Thank you for your contribution.")
+						}
+					</script>
+
 				<input type="submit" name="submit" value="submit" button class="signin">
 			</form>
 	{% else %}
