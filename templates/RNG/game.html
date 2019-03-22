@@ -63,7 +63,12 @@
 			
 			{% for comment in comments %}
 				<hr>
-				<b>{{ comment.user }}{% if user.critic %} (critic){% endif %}</b><br />
+				<b>
+				{% if comment.user.critic == True %} 
+					{{ comment.user }} <i style = "color: #00EE00">critic</i></b><br />
+				{% else %}
+					{{ comment.user }}</b><br />
+				{% endif %}
 				<p>{{ comment.content }}</p>
 				<p>{{ comment.timestamp }}</p>
 				<hr>
