@@ -1,3 +1,4 @@
+#IMPORTS
 from datetime import datetime
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
@@ -9,19 +10,11 @@ from django.db.models import Q
 from RNG.models import Category, Game, Comment, Rating
 from RNG.forms import CategoryForm, UserForm, GameForm, UserProfileForm, CommentForm, RatingForm
 
-def visitor_cookie_handler(request):
-	visits = int(request.COOKIES.get("visits","1"))
-	last_visit_cookie=request.COOKIES.get("last_visit",str(datetime.now()))
-	last_visit_time=datetime.strptime(last_visit_cookie[:-7], "%Y-%,-%d %H:%M:%S")
-	if (datetime.now()-last_visit_time).days > 0:
-		visits+=1
-		request.session["last_visit"]=str(datetime.now())
-	else:
-		request.session["last_visit"]=last_visit_cookie
-	request.session["visits"]=visits
-
+#view for home page
 def index(request):
+	#list of new games
     newGameList= Game.objects.order_by("-release_date")#newgames
+	#list of popular games by rating
     popGameList= Game.objects.order_by("rating")#popular games
     newGames= []
     popularGames= []
@@ -36,10 +29,12 @@ def index(request):
                   "popularGames": popularGames}
     return render(request, 'RNG/index.html', context=context_dict)
 
+#view for about page
 def about(request):
     context_dict={}
     return render(request, 'RNG/about.html', context=context_dict)
 
+#view for signup page
 def signup(request):
 	registered = False
 	
