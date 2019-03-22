@@ -1,3 +1,4 @@
+#IMPORTS
 from django import forms
 from RNG.models import UserProfile, Category, Game, Comment, Rating
 from django.contrib.auth.models import User
