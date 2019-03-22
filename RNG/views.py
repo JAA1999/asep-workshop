@@ -19,8 +19,9 @@ def index(request):
 	for popGame in popGameList:
 		avg = popGame.avg_rating['score__avg']
 		if avg == None:
-			avg == 0.0
-		game_dict[popGame] = avg
+			game_dict[popGame] = 0.0
+		else:
+			game_dict[popGame] = avg
 	sortedPop = sorted(game_dict, key=lambda i: float(game_dict[i]))
 	mostPop = sortedPop[::-1]
 	topFive = mostPop[:5]
