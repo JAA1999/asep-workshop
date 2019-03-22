@@ -289,7 +289,7 @@ def populate():
            "I left my wife so I could be with this game", "needs more water", "good with mods", "like skyrim but with guns",
            "Keep up the good work", "What are games?", "This game was shocking", "A fantastic experience", "Great story",
            "Amazing to think it was only made in 5 days", "Trailer was better than game", ";)", "Curse you Perry the Platypus",
-           "First", "sᴉɥʇ pɐǝɹ oʇ uǝǝɹɔs ɹnoʎ uɹnʇ oʇ ǝʌɐɥ llᴉʍ noʎ os uʍop ǝpᴉsdn sᴉɥʇ ƃuᴉdʎʇ ɯɐ I", "💩"]
+           "First", "sᴉɥʇ pɐǝɹ oʇ uǝǝɹɔs ɹnoʎ uɹnʇ oʇ ǝʌɐɥ llᴉʍ noʎ os uʍop ǝpᴉsdn sᴉɥʇ ƃuᴉdʎʇ ɯɐ I"]
         comment = content[random.randint(0,len(content)-1)]
         if comment is None:
             comment = Comment.objects.get_or_create(user=user, game=game, content=comment)[0]
