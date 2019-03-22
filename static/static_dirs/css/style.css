@@ -1,3 +1,4 @@
+/*this loads the "Title font from a host website online fonts*/
 @font-face {font-family: "Title";
     src: url("//db.onlinewebfonts.com/t/77dbd0c6619dff4c29d3390d42d6db42.eot");
     src: url("//db.onlinewebfonts.com/t/77dbd0c6619dff4c29d3390d42d6db42.eot?#iefix") format("embedded-opentype"),
@@ -7,7 +8,7 @@
     url("//db.onlinewebfonts.com/t/77dbd0c6619dff4c29d3390d42d6db42.svg#Cinema Gothic BTN Inline") format("svg");
 }
 
-/*these are overwrites of standard css*/
+/*these are overwrites of host css*/
 body{
       display: block;
       margin: 0;
@@ -44,102 +45,10 @@ b{
 a {
    pointer-events: auto !important;  
    cursor: pointer !important;
-   text-decoration: none;
-   
+   text-decoration: none;  
 }
 
-.head{
-      max-width: 100vw;
-      background-color: #323232;
-      height: 100px;
-      position: sticky;
-      right:0;
-      left:0;
-      z-index: 1000;
-      margin: 0 auto;
-}
-.head2{
-      max-width: 100vw;
-      background-color: #323232;
-      height: 80px;
-      position: sticky;
-      top: 0;
-      right:0;
-      left:0;
-      margin: 0 auto;
-      box-shadow: 0 4px 6px 0 #797979;
-      z-index: 999;
-}
-
-
-.body{
-      max-width: 960px;
-}
-.sticky{
-      position: sticky;
-      right:0;
-      left:0;
-      top:0;
-}
-
-.top-square {
-      padding-top:0px;
-      height:100px;
-      background-color: #323232;
-      display: block;
-      position: sticky;
-      z-index: 5;
-      max-width: 960px;
-}
-.top-square2 {
-      left: 65;
-      height:80px;
-      background-color: #323232;
-      max-width: 960px;
-      position: sticky;
-      top: 0px;
-}
-
-.centre {
-      margin: 0 auto;
-}
-.title1 {
-      margin: 0px;
-      color: #00EE00;
-      font-family: "Title", "Arial";
-      font-size: 80px;
-      padding-top: 20px;
-      padding-bottom: 0px;
-      padding-left:60px;
-}
-
-.title2{
-      margin: 0px;
-      color: #00EE00;
-      font-family: "Title", "Arial";
-      font-size: 30px;
-      padding-top: 20px;
-      padding-bottom: 0px;
-}
-
-.ib{
-      display: inline-block;
-}
-
-.input{
-      padding-left: 10px;
-      font-size: 20px;
-      width: 180px;
-      border: 1px solid #202020;
-      border-radius: 10px;
-      box-shadow: inset 0 0 2px #323232;
-      outline: none;
-}
-
-.input:hover {
-      border: 1px solid #00EE00;     
-}
-
+/* these overwrite input fields so that they have the same styling as the search bar*/
 input[type=text]{
       padding-left: 10px;
       font-size: 20px;
@@ -200,6 +109,95 @@ input[type=submit]:hover{
         box-shadow: inset 0 0 6px #000000;    
 }
 
+
+
+/*beginning of main body*/
+/*////////////////////////*/
+
+/*The head styles the non sticking portion of the top bar*/
+.head{
+      max-width: 100vw;
+      background-color: #323232;
+      height: 100px;
+      position: sticky;
+      right:0;
+      left:0;
+      z-index: 1000;
+      margin: 0 auto;
+}
+/*styles the container that holds the elements on the top bar*/
+.top-square {
+      padding-top:0px;
+      height:100px;
+      background-color: #323232;
+      display: block;
+      position: sticky;
+      z-index: 5;
+      max-width: 960px;
+}
+
+/*styles the larger portion of main title*/
+.title1 {
+      margin: 0px;
+      color: #00EE00;
+      font-family: "Title", "Arial";
+      font-size: 80px;
+      padding-top: 20px;
+      padding-bottom: 0px;
+      padding-left:60px;
+}
+
+/*styles the smaller portion of main title*/
+.title2{
+      margin: 0px;
+      color: #00EE00;
+      font-family: "Title", "Arial";
+      font-size: 30px;
+      padding-top: 20px;
+      padding-bottom: 0px;
+}
+
+/*styles the sticking portion of the top bar*/
+.head2{
+      max-width: 100vw;
+      background-color: #323232;
+      height: 80px;
+      position: sticky;
+      top: 0;
+      right:0;
+      left:0;
+      margin: 0 auto;
+      box-shadow: 0 4px 6px 0 #797979;
+      z-index: 999;
+}
+
+/*styles the portion that holds the sticking part of the top bar */
+.top-square2 {
+      left: 65;
+      height:80px;
+      background-color: #323232;
+      max-width: 960px;
+      position: sticky;
+      top: 0px;
+}
+
+/* used to style the search bar*/
+.input{
+      padding-left: 10px;
+      font-size: 20px;
+      width: 180px;
+      border: 1px solid #202020;
+      border-radius: 10px;
+      box-shadow: inset 0 0 2px #323232;
+      outline: none;
+}
+
+/* changes the bar on hover */
+.input:hover {
+      border: 1px solid #00EE00;     
+}
+
+/*styles the search bar*/
 .searchBlock{
       position:absolute;
       right: 60px;
@@ -230,12 +228,6 @@ input[type=submit]:hover{
       box-shadow: inset 0 0 6px #000000;  
 }
 
-.giant-box{
-      height: 3000px;
-      width: 5px;
-      background-color:#202020;    
-} 
-
 .line{
       position: relative;
       margin-top: 15px;
@@ -245,6 +237,32 @@ input[type=submit]:hover{
       display: inline-block;
       box-shadow: 0 0 4px black;
 }
+
+/* is used in the main body of pages to cap the width of content at 960px in line with the standard set out by w3*/
+.body{
+      max-width: 960px;
+}
+.sticky{
+      position: sticky;
+      right:0;
+      left:0;
+      top:0;
+}
+
+/*centres the element in its parent*/
+.centre {
+      margin: 0 auto;
+}
+
+.ib{
+      display: inline-block;
+}
+
+.giant-box{
+      height: 3000px;
+      width: 5px;
+      background-color:#202020;    
+} 
 
 .marginLeft{
       margin-left: 65px;
@@ -537,6 +555,8 @@ pre{
 }
 
 
+
+/*This implements minor scalability however does not scale the top bar*/
 @media only screen and (max-width: 977px) {
 
 /*these are overwrites of standard css*/
