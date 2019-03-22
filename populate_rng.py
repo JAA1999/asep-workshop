@@ -267,7 +267,7 @@ def populate():
         print(username)
         first_name = generate_string(10)
         last_name = generate_string(10)
-        critic=True
+        critic=critic
         user = UserProfile.objects.get_or_create(username=username, first_name=first_name, last_name=last_name, critic=critic)[0]
         user.save()
         return user
