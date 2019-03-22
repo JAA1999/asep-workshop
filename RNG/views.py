@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.db.models import Q
+import random
 
 from RNG.models import Category, Game, Comment, Rating
 from RNG.forms import CategoryForm, UserForm, GameForm, UserProfileForm, CommentForm, RatingForm
@@ -21,20 +22,25 @@ def visitor_cookie_handler(request):
 	request.session["visits"]=visits
 
 def index(request):
-    newGameList= Game.objects.order_by("-release_date")#newgames
-    popGameList= Game.objects.order_by("rating")#popular games
-    newGames= []
-    popularGames= []
-    for r in newGameList:
-        print(r.name, r.release_date)
+	newGameList= Game.objects.order_by("-release_date")#newgames
+	popGameList= Game.objects.order_by("rating")#popular games
+	random_index = random.randrange(0, len(popGameList))
+	random_game = popGameList[random_index]
+	random_cat = random_game.category
+	newGames= []
+	popularGames= []
+	for r in newGameList:
+		print(r.name, r.release_date)
         
-    for i in range(1,6):
-        newGames.append(newGameList[i])
-        popularGames.append(popGameList[i])
+	for i in range(1,6):
+		newGames.append(newGameList[i])
+		popularGames.append(popGameList[i])
     
-    context_dict={"newGames":newGames,
-                  "popularGames": popularGames}
-    return render(request, 'RNG/index.html', context=context_dict)
+	context_dict={"newGames":newGames,
+                  "popularGames": popularGames,
+				  "random_game": random_game,
+				  "random_cat": random_cat}
+	return render(request, 'RNG/index.html', context=context_dict)
 
 def about(request):
     context_dict={}
