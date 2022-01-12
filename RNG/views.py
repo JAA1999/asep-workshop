@@ -17,7 +17,7 @@ def index(request):
     # populates list of new and popular games
     # to display on carousels on index
     game_dict = {}
-    newGameList = Game.objects.order_by("-release_date")  # newgames
+    newGameList = Game.objects.order_by("release_date")  # newgames
     popGameList = Game.objects.order_by("rating")  # popular games
     for popGame in popGameList:
         avg = popGame.avg_rating['score__avg']
@@ -32,13 +32,10 @@ def index(request):
     topFive = topSix[1:6]
     # topFive.pop(topFive[0])
     random_index = random.randrange(0, len(popGameList))
-    random_game = popGameList[random_index]
+    random_game = popGameList[0]
     random_cat = random_game.category
     newGames = []
     popularGames = []
-    for r in newGameList:
-        print(r.name, r.release_date)
-
     for i in range(1, 6):
         newGames.append(newGameList[i])
         popularGames.append(popGameList[i])
@@ -55,7 +52,7 @@ def index(request):
 # view for about page
 def about(request):
     context_dict = {}
-    return render(request, 'RNG/about.html', context=context_dict)
+    return render(request, 'RNG/abbout.html', context=context_dict)
 
 
 # view for signup page
@@ -87,10 +84,10 @@ def signup(request):
         profile_form = UserProfileForm()
 
     return render(request,
-                  'RNG/signup.html',
-                  {'user_form': user_form,
-                   'profile_form': profile_form,
-                   'registered': registered})
+                'RNG/signup.html',
+                {'user_form': user_form,
+                'profile_form': profile_form,
+                'registered': registered})
 
 
 # view for login
@@ -124,7 +121,7 @@ def user_logout(request):
 
 # view for all categories: shows all categories sorted by name
 def show_categories(request):
-    context_dict = {}
+    context_dict = []
     try:
         categorylist = []
         categorylist = Category.objects.order_by('name')
@@ -194,7 +191,7 @@ def gameV(request, category_name_slug, game_name_slug):
 
     context_dict = {}
     if av_critic == None:
-        context_dict['av_critic'] = av_critic
+        context_dict['av_critic'] = 10
     else:
         context_dict['av_critic'] = "%.2f" % round(av_critic, 2)
     if av_user == None:
@@ -244,6 +241,7 @@ def allgames(request):
 def search(request):
     if request.method == 'GET':
         game_name = request.GET.get('search')
+        raise Exception('Search Not Implemented -- Signed Senior Dev Dave')
         try:
             games = Game.objects.filter(name__icontains=game_name)
         except:

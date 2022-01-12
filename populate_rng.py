@@ -9,6 +9,8 @@ from string import ascii_lowercase  # for generating strings
 from django.utils.dateparse import parse_date   # string to datetime
 from django.db import IntegrityError    # catch unique constraint
 
+random.seed(7)
+
 action = [
     {"name": "Assassin's Creed 2",
      "user_score": 4,
@@ -109,9 +111,9 @@ strategy = [
 ]
 puzzle = [
     {"name": "Portal 2",
-     "user_score": 4,
+     "user_score": 10,
      "num_user_ratings": 5,
-     "critic_score": 5,
+     "critic_score": 10,
      "num_critic_ratings": 5,
      "age_rating": 12,
      "description": "A singleplayer/multiplayer puzzle game revolving around the use of a portal gun. Set in an abandoned laboratory populated by yourself and AI's.",
@@ -261,7 +263,7 @@ def generate_string(length):
 
 def generate_user(critic):
     username = generate_string(10)
-    print(username)
+    # print(username)
     first_name = generate_string(10)
     last_name = generate_string(10)
     user = UserProfile.objects.get_or_create(username=username, first_name=first_name, last_name=last_name, critic=critic)[0]
@@ -271,7 +273,7 @@ def generate_user(critic):
 
 def generate_user(critic):
     username = generate_string(10)
-    print(username)
+    # print(username)
     first_name = generate_string(10)
     last_name = generate_string(10)
     critic=critic
@@ -327,28 +329,30 @@ def populate():
     NUM_CRITIC_USERS = 20
     NUM_USERS = NUM_REGULAR_USERS + NUM_CRITIC_USERS  # don't make lower than 20
 
+    print('Generating Users')
     for i in range(NUM_REGULAR_USERS):
         generate_user(critic=False)
-        print("Generating normal user")
+        # print("Generating normal user")
 
     for i in range(NUM_CRITIC_USERS):
         generate_user(critic=True)
-        print("Generating critic")
+        # print("Generating critic")
 
     users = UserProfile.objects.all()
 
     def get_random_user():
         return random.choice(users)
 
+    print('Generating Games')
     ### MAIN POPULATE LOOP ###
     for name, games in cats.items():
         # generate categories
-        print("Creating " + name + " category")
+        # print("Creating " + name + " category")
         category = generate_category(name)
 
         # generate games for those categories
         for game_dict in games:
-            print("Creating " + game_dict["name"] + " game")
+            # print("Creating " + game_dict["name"] + " game")
             game = generate_game(category=category, name=game_dict["name"],
                                  age_rating=game_dict["age_rating"],
                                  release_date=parse_date(game_dict["release_date"]),
@@ -360,7 +364,7 @@ def populate():
 
             # generate ratings for game
             for i in range(random.randint(0, 20)):
-                print("Creating rating")
+                # print("Creating rating")
                 try:
                     rating = generate_rating(user=get_random_user(), game=game,
                                              critic_rating=random.choice([True, False]))
@@ -376,13 +380,13 @@ def populate():
                 # randomly allocate comments as subcomments
                 num_sub_comments = random.randint(1, num_comments - i)
                 for x in range(random.randint(1, num_sub_comments)):
-                    print("Creating comment")
+                    # print("Creating comment")
                     comment = generate_comment(game=game, user=get_random_user(),
                                                comment=prev_comment)
                     prev_comment = comment
                 i = i + num_sub_comments
 
-
+    print('Generated Games')
     for c in Category.objects.all():
         for p in Game.objects.filter(category=c):
             print("- {0} - {1}".format(str(c), str(p)))

@@ -19,6 +19,7 @@ pip install -r requirements.txt
 ```
 
 ### Setup the app and run it
+Navigate to asep-workshop and run these commands (use python3 on a linux-like OS)
 ```
 python manage.py makemigrations
 python manage.py migrate
