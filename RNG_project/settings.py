@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'RNG',
-	'registration'
+    'registration'
 ]
 
 
@@ -73,7 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-				'django.template.context_processors.media'
+                'django.template.context_processors.media'
             ],
         },
     },
@@ -99,11 +99,11 @@ DATABASES = {
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-		'OPTIONS': { 'max_similarity' : 1, }
-	},
+        'OPTIONS': { 'max_similarity' : 1, }
+    },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-		'OPTIONS': { 'min_length': 8, }
+        'OPTIONS': { 'min_length': 8, }
 
     },
     {
@@ -116,10 +116,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 PASSWORD_HASHERS = (
-	'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
-	'django.contrib.auth.hashers.BCryptPasswordHasher',
-	'django.contrib.auth.hashers.PBKDF2PasswordHasher',
-	'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
 )
 
 
