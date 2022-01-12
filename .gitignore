@@ -2,3 +2,5 @@
 /RNG/__pycache__
 /RNG_project/__pycache__
 /.vscode
+.venv
+db.sqlite3
