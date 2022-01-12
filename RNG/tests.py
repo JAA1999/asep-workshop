@@ -44,7 +44,8 @@ class DatabaseSaveTests(TestCase):
     def generate_rating(self):
         game = self.generate_game()
         user = self.generate_user()[0]
-        rating = populate_rng.generate_rating(game=game, user=user, critic_rating=user.critic)
+        rating = populate_rng.generate_rating(
+            game=game, user=user, critic_rating=user.critic)
         return rating, rating.score, user, game
 
     def generate_comment(self):
@@ -53,11 +54,10 @@ class DatabaseSaveTests(TestCase):
         comment = populate_rng.generate_comment(user=user, game=game)
         return comment, game, user, comment.content
 
-
     def test_ensure_category_fields_correct(self):
         # create cat then save, test if saved correctly
         cat = self.generate_category()
-        self.assertEqual((cat.name=="TestCategory"), True)
+        self.assertEqual((cat.name == "TestCategory"), True)
 
     def test_ensure_game_fields_correct(self):
         # save a game then test if the fields are correct
@@ -66,10 +66,10 @@ class DatabaseSaveTests(TestCase):
         game = self.generate_game()
         cat = self.generate_category()
 
-        self.assertEquals((game.name=="TestGame" and game.age_rating=="18" and
-                           game.description=="Test description here" and
-                           game.release_date==parse_date("2019-04-03") and
-                           game.category==cat), True)
+        self.assertEquals((game.name == "TestGame" and game.age_rating == "18" and
+                           game.description == "Test description here" and
+                           game.release_date == parse_date("2019-04-03") and
+                           game.category == cat), True)
 
     def test_ensure_userprofile_fields_correct(self):
         username = self.generate_string(10)
@@ -79,25 +79,23 @@ class DatabaseSaveTests(TestCase):
 
         user, username, first_name, last_name = self.generate_user()
 
-        self.assertEquals((user.username==username and user.first_name==first_name and
-                           user.last_name==last_name), True)
+        self.assertEquals((user.username == username and user.first_name == first_name and
+                           user.last_name == last_name), True)
 
     def test_ensure_rating_fields_correct(self):
         rating, score, user, game = self.generate_rating()
 
-        self.assertEquals((rating.score==score and rating.user==user and
-                           rating.game==game), True)
+        self.assertEquals((rating.score == score and rating.user == user and
+                           rating.game == game), True)
 
     def test_ensure_comment_fields_correct(self):
         comment, game, user, content = self.generate_comment()
 
-        self.assertEquals((comment.game==game and comment.user==user and comment.content==content), True)
+        self.assertEquals((comment.game == game and comment.user ==
+                          user and comment.content == content), True)
 
     # test_ensure_category_fields_correct()
     # test_ensure_game_fields_correct()
     # test_ensure_userprofile_fields_correct()
     # test_ensure_rating_fields_correct()
     # test_ensure_comment_fields_correct()
-
-
-
