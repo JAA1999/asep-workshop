@@ -18,14 +18,16 @@ git clone https://github.com/JAA1999/WAD_Project.git
 
 pip install -r requirements.txt
 
-cd wad_project
+cd Wad_Project
 
-git manage.py makemigrations
+python manage.py makemigrations
 
-git manage.py migrate
+python manage.py migrate
 
-git manage.py migrate --run-syncdb
+python manage.py migrate --run-syncdb
 
-git populate_rng.py 
+python populate_rng.py 
 
-git manage.py runserver
+python manage.py runserver
+
+python manage.py createsuperuser
