@@ -7,13 +7,16 @@ def mergeSort(arr):
     if len(arr) > 1:
         # Finding the mid of the array
         mid = len(arr)//2
+        
+        print(mid)
 
         # Dividing the array elements
         left_arr = arr[:mid]
 
+        print(left_arr)
         # into 2 halves
         right_arr = arr[mid:]
-
+        print(right_arr)
         # Sorting the first half
         mergeSort(left_arr)
 
@@ -25,13 +28,18 @@ def mergeSort(arr):
 
         # Copy data to temp arrays left_arr[] and right_arr[]
         while i < len(left_arr) and j < len(right_arr):
+            print(i)
+            print(j)
             if left_arr[i] < right_arr[j]:
+                print(right_arr[i])
                 arr[k] = right_arr[i]
                 i += 1
             else:
+                print(left_arr[j])
                 arr[k] = left_arr[j]
                 j += 1
             k += 1
+            print(k)
 
         # Checking if any element was left
         while i < len(left_arr):

@@ -1,0 +1,28 @@
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    transition: background .3s;
+    color:white;
+}
+
+.buttons-wrapper{
+    padding: 20px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 10px;
+}
+
+h1{
+    text-align: center;
+}
+
+button {
+    margin: 5px;
+    height: 40px;
+    width: 100px;
+    border: rgba(255,255,255,0.2) 1px solid;
+    border-radius: 3px;
+    box-shadow: 2px 3px 6px rgb(0 0 0 / 15%);
+    color: white;
+}
